@@ -3,7 +3,7 @@ require_once("bootstrap.php");
 if(isset($_POST['username'], $_POST['p'])) {
     $username = $_POST['username'];
     $password = $_POST['p']; // Recupero la password criptata.
-    if(login($username, $password, $mysqli) == true) {
+    if(login($username, $password, $dbh->db) == true) {
         // Login eseguito
         echo 'Success: You have been logged in!';
     } else {
