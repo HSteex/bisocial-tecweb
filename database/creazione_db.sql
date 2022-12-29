@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS `besocial`.`user` (
                                                  `cognome` VARCHAR(45) NOT NULL,
                                                  `bio` VARCHAR(512),
                                                  `user_image` VARCHAR(100),
-                                                 PRIMARY KEY (`user_id`))
+                                                 PRIMARY KEY (`user_id`),
+                                                 UNIQUE KEY `username` (`username`))
     ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `besocial`.`login_attemps` (
