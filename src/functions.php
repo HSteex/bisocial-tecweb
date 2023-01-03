@@ -1,7 +1,4 @@
 <?php
-require("bootstrap.php");
-require("database/database.php");
-$dbh = new DatabaseHelper("localhost","root","","besocial",3306);
 
 function sec_session_start() {
     $session_name = 'sec_session_id'; // Imposta un nome di sessione
@@ -15,7 +12,7 @@ function sec_session_start() {
     session_regenerate_id(); // Rigenera la sessione e cancella quella creata in precedenza.
 }
 
-
+/*
 function login($username, $password) {
     // Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.
     if ($result = $dbh->getLoginInfo($username)) {
@@ -46,9 +43,8 @@ function login($username, $password) {
                 }
             }
         } else {
-            // L'utente inserito non esiste.
-            return false;
-        }
+        // L'utente inserito non esiste.
+        return false;
     }
 }
 
@@ -76,6 +72,6 @@ function login_check($mysqli) {
         // Login non eseguito
         return false;
     }
-}
+}*/
 
 ?>

@@ -5,38 +5,38 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema besocial
+-- Schema bisocial
 -- -----------------------------------------------------
 
-CREATE SCHEMA IF NOT EXISTS `besocial` DEFAULT CHARACTER SET utf8 ;
-USE `besocial` ;
+CREATE SCHEMA IF NOT EXISTS `bisocial` DEFAULT CHARACTER SET utf8 ;
+USE `bisocial` ;
 
 -- -----------------------------------------------------
--- Table `besocial`.`user`
+-- Table `bisocial`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `besocial`.`user` (
+CREATE TABLE IF NOT EXISTS `bisocial`.`user` (
                                                  `user_id` INT NOT NULL AUTO_INCREMENT,
                                                  `username` VARCHAR(100) NOT NULL,
                                                  `email` VARCHAR(100) NOT NULL,
                                                  `password` CHAR(128) NOT NULL,
                                                  `salt` CHAR(128) NOT NULL,
-                                                 `nome` VARCHAR(45) NOT NULL,
-                                                 `cognome` VARCHAR(45) NOT NULL,
+                                                 `nome` VARCHAR(45),
+                                                 `cognome` VARCHAR(45),
                                                  `bio` VARCHAR(512),
                                                  `user_image` VARCHAR(100),
                                                  PRIMARY KEY (`user_id`),
                                                  UNIQUE KEY `username` (`username`))
     ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `besocial`.`login_attemps` (
+CREATE TABLE IF NOT EXISTS `bisocial`.`login_attempts` (
                                                 `user_id` INT NOT NULL,
                                                 `time` VARCHAR(30) NOT NULL)
     ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `besocial`.`follower`
+-- Table `bisocial`.`follower`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `besocial`.`follower` (
+CREATE TABLE IF NOT EXISTS `bisocial`.`follower` (
                                                  `follow_id` INT NOT NULL AUTO_INCREMENT,
                                                  `source_id` INT NOT NULL,
                                                  `target_id` INT NOT NULL,
@@ -44,24 +44,24 @@ CREATE TABLE IF NOT EXISTS `besocial`.`follower` (
                                                  INDEX `idx_follower_source` (`source_id` ASC),
                                                  CONSTRAINT `fk_follower_source`
                                                     FOREIGN KEY (`source_id`)
-                                                    REFERENCES `besocial`.`user` (`user_id`)
+                                                    REFERENCES `bisocial`.`user` (`user_id`)
                                                     ON DELETE NO ACTION
                                                     ON UPDATE NO ACTION)
     ENGINE = InnoDB;
 
-ALTER TABLE `besocial`.`follower`
+ALTER TABLE `bisocial`.`follower`
 ADD INDEX `idx_follower_target` (`target_id` ASC);
-ALTER TABLE `besocial`.`follower`
+ALTER TABLE `bisocial`.`follower`
 ADD CONSTRAINT `fk_follower_target`
         FOREIGN KEY (`target_id`)
-            REFERENCES `besocial`.`user` (`user_id`)
+            REFERENCES `bisocial`.`user` (`user_id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 
 -- -----------------------------------------------------
--- Table `besocial`.`message`
+-- Table `bisocial`.`message`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `besocial`.`message` (
+CREATE TABLE IF NOT EXISTS `bisocial`.`message` (
                                                      `message_id` INT NOT NULL AUTO_INCREMENT,
                                                      `source_id` INT NOT NULL,
                                                      `target_id` INT NOT NULL,
@@ -71,24 +71,24 @@ CREATE TABLE IF NOT EXISTS `besocial`.`message` (
                                                      INDEX `idx_message_source` (`source_id` ASC),
                                                      CONSTRAINT `fk_message_source`
                                                          FOREIGN KEY (`source_id`)
-                                                             REFERENCES `besocial`.`user` (`user_id`)
+                                                             REFERENCES `bisocial`.`user` (`user_id`)
                                                              ON DELETE NO ACTION
                                                              ON UPDATE NO ACTION)
     ENGINE = InnoDB;
 
-ALTER TABLE `besocial`.`message`
+ALTER TABLE `bisocial`.`message`
     ADD INDEX `idx_message_target` (`target_id` ASC);
-ALTER TABLE `besocial`.`message`
+ALTER TABLE `bisocial`.`message`
     ADD CONSTRAINT `fk_message_target`
         FOREIGN KEY (`target_id`)
-            REFERENCES `besocial`.`user` (`user_id`)
+            REFERENCES `bisocial`.`user` (`user_id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 
 -- -----------------------------------------------------
--- Table `besocial`.`community`
+-- Table `bisocial`.`community`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `besocial`.`community` (
+CREATE TABLE IF NOT EXISTS `bisocial`.`community` (
                                                     `community_id` INT NOT NULL AUTO_INCREMENT,
                                                     `creator_id` INT NOT NULL,
                                                     `name` VARCHAR(100) NOT NULL,
@@ -99,15 +99,15 @@ CREATE TABLE IF NOT EXISTS `besocial`.`community` (
                                                     INDEX `idx_community_creator` (`creator_id` ASC),
                                                     CONSTRAINT `fk_community_creator`
                                                         FOREIGN KEY (`creator_id`)
-                                                            REFERENCES `besocial`.`user` (`user_id`)
+                                                            REFERENCES `bisocial`.`user` (`user_id`)
                                                             ON DELETE NO ACTION
                                                             ON UPDATE NO ACTION)
     ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `besocial`.`member`
+-- Table `bisocial`.`member`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `besocial`.`member` (
+CREATE TABLE IF NOT EXISTS `bisocial`.`member` (
                                                  `member_id` INT NOT NULL AUTO_INCREMENT,
                                                  `community_id` INT NOT NULL,
                                                  `user_id` INT NOT NULL,
@@ -116,25 +116,25 @@ CREATE TABLE IF NOT EXISTS `besocial`.`member` (
                                                  INDEX `idx_member_community` (`community_id` ASC),
                                                  CONSTRAINT `fk_member_community`
                                                      FOREIGN KEY (`community_id`)
-                                                         REFERENCES `besocial`.`user` (`user_id`)
+                                                         REFERENCES `bisocial`.`user` (`user_id`)
                                                          ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION)
     ENGINE = InnoDB;
 
-ALTER TABLE `besocial`.`member`
+ALTER TABLE `bisocial`.`member`
     ADD INDEX `idx_member_user` (`user_id` ASC);
-ALTER TABLE `besocial`.`member`
+ALTER TABLE `bisocial`.`member`
     ADD CONSTRAINT `fk_member_user`
         FOREIGN KEY (`user_id`)
-            REFERENCES `besocial`.`user` (`user_id`)
+            REFERENCES `bisocial`.`user` (`user_id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 
 
 -- -----------------------------------------------------
--- Table `besocial`.`post`
+-- Table `bisocial`.`post`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `besocial`.`post` (
+CREATE TABLE IF NOT EXISTS `bisocial`.`post` (
                                                    `post_id` INT NOT NULL AUTO_INCREMENT,
                                                    `creator_id` INT NOT NULL,
                                                    `community_id` INT,
@@ -145,23 +145,23 @@ CREATE TABLE IF NOT EXISTS `besocial`.`post` (
                                                    INDEX `idx_post_creator` (`creator_id` ASC),
                                                    CONSTRAINT `fk_post_creator`
                                                        FOREIGN KEY (`creator_id`)
-                                                           REFERENCES `besocial`.`user` (`user_id`)
+                                                           REFERENCES `bisocial`.`user` (`user_id`)
                                                            ON DELETE NO ACTION
                                                            ON UPDATE NO ACTION)
     ENGINE = InnoDB;
 
-ALTER TABLE `besocial`.`post`
+ALTER TABLE `bisocial`.`post`
     ADD CONSTRAINT `fk_post_community`
         FOREIGN KEY (`community_id`)
-            REFERENCES `besocial`.`community` (`community_id`)
+            REFERENCES `bisocial`.`community` (`community_id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 
 
 -- -----------------------------------------------------
--- Table `besocial`.`like`
+-- Table `bisocial`.`like`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `besocial`.`like` (
+CREATE TABLE IF NOT EXISTS `bisocial`.`like` (
                                                  `like_id` INT NOT NULL AUTO_INCREMENT,
                                                  `post_id` INT NOT NULL,
                                                  `user_id` INT NOT NULL,
@@ -169,25 +169,25 @@ CREATE TABLE IF NOT EXISTS `besocial`.`like` (
                                                  INDEX `idx_like_post` (`post_id` ASC),
                                                  CONSTRAINT `fk_like_post`
                                                      FOREIGN KEY (`post_id`)
-                                                         REFERENCES `besocial`.`post` (`post_id`)
+                                                         REFERENCES `bisocial`.`post` (`post_id`)
                                                          ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION)
     ENGINE = InnoDB;
 
-ALTER TABLE `besocial`.`like`
+ALTER TABLE `bisocial`.`like`
     ADD INDEX `idx_like_user` (`user_id` ASC);
-ALTER TABLE `besocial`.`like`
+ALTER TABLE `bisocial`.`like`
     ADD CONSTRAINT `fk_like_user`
         FOREIGN KEY (`user_id`)
-            REFERENCES `besocial`.`user` (`user_id`)
+            REFERENCES `bisocial`.`user` (`user_id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 
 
 -- -----------------------------------------------------
--- Table `besocial`.`comment`
+-- Table `bisocial`.`comment`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `besocial`.`comment` (
+CREATE TABLE IF NOT EXISTS `bisocial`.`comment` (
                                                  `comment_id` INT NOT NULL AUTO_INCREMENT,
                                                  `post_id` INT NOT NULL,
                                                  `user_id` INT NOT NULL,
@@ -195,17 +195,17 @@ CREATE TABLE IF NOT EXISTS `besocial`.`comment` (
                                                  INDEX `idx_comment_post` (`post_id` ASC),
                                                  CONSTRAINT `fk_comment_post`
                                                      FOREIGN KEY (`post_id`)
-                                                         REFERENCES `besocial`.`post` (`post_id`)
+                                                         REFERENCES `bisocial`.`post` (`post_id`)
                                                          ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION)
     ENGINE = InnoDB;
 
-ALTER TABLE `besocial`.`comment`
+ALTER TABLE `bisocial`.`comment`
     ADD INDEX `idx_comment_user` (`user_id` ASC);
-ALTER TABLE `besocial`.`comment`
+ALTER TABLE `bisocial`.`comment`
     ADD CONSTRAINT `fk_comment_user`
         FOREIGN KEY (`user_id`)
-            REFERENCES `besocial`.`user` (`user_id`)
+            REFERENCES `bisocial`.`user` (`user_id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 

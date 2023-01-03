@@ -19,7 +19,7 @@
         <div class="oppure"><span class="separator">
     altrimenti
 </span></div>
-        <div class="center"><button class="btn btn-primary login" type="button">Login</button></div>
+        <div class="center"><button class="btn btn-primary login" type="button" onclick="">Login</button></div>
     </div>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 </body>

@@ -4,21 +4,31 @@ class DatabaseHelper{
 
     public function __construct($servername, $username, $password, $dbname, $port){
         $this->db = new mysqli($servername, $username, $password, $dbname, $port);
-        if ($this->db->connect_error) {
+        /*if ($this->db->connect_error) {
             die("Connection failed: " . $this->db->connect_error);
-        }
+        }*/
     }
 
-    public function getLoginInfo($username) {
+    public function addUser($username, $email, $password, $salt) {
+        $insert_stmt = $this->db->prepare("INSERT INTO user (username, email, password, salt) VALUES (?, ?, ?, ?)");
+        $insert_stmt->bind_param('ssss', $username, $email, $password, $salt);
+        $insert_stmt->execute();
+    }
+
+    public function getUser($username) {
         $stmt = $this->db->prepare("SELECT user_id, username, password, salt FROM user WHERE username = ? LIMIT 1");
         $stmt->bind_param('s', $username);
         $stmt->execute();
-        if($stmt->num_rows == 1) {      //se l'utente esiste
-            $result = $stmt->get_result();
-            return $result->fetch_all(MYSQLI_ASSOC);
-        } else {
-            return false;
-        }
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getUserByEmail($email) {
+        $stmt = $this->db->prepare("SELECT user_id, username, email, password, salt FROM user WHERE email = ? LIMIT 1");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getPassword($user_id) {
@@ -38,7 +48,6 @@ class DatabaseHelper{
     }
 
     public function checkBrute($user_id) {
-        // Recupero il timestamp
         $now = time();
         // Vengono analizzati tutti i tentativi di login a partire dalle ultime due ore.
         $valid_attempts = $now - (2 * 60 * 60);
@@ -56,5 +65,4 @@ class DatabaseHelper{
         }
     }
 }
-
 ?>
