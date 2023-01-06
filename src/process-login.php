@@ -1,6 +1,8 @@
 <?php
 require_once "bootstrap.php";
 
+$dbh = new DatabaseHelper("localhost","root","","bisocial",3306);
+
 if(isset($_POST['username'], $_POST['p'])) {
     $result = $dbh->getUser($_POST['username'])[0];
     if (!empty($result)) {
