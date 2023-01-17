@@ -1,7 +1,9 @@
 <?php
 require_once "bootstrap.php";
 
-$pagina = "home.php";
+loginCheck();
 
-require "template-in.php";
+$pagina = "post-load.php";
+
+require("template-in.php");
 ?>

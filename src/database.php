@@ -31,31 +31,6 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getPostForUser($user_id) {
-        $stmt = $this->db->prepare("SELECT p.post_id, p.creator_id, u.username, p.description, p.created_at, p.post_image 
-                                    FROM post p 
-                                    JOIN follower f ON p.creator_id = f.target_id
-                                    JOIN user u ON f.target_id = u.user_id
-                                    WHERE f.source_id = ?
-                                    ORDER BY p.created_at DESC");
-        $stmt->bind_param('s', $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getPassword($user_id) {
-        $stmt = $this->db->prepare("SELECT password FROM user WHERE user_id = ? LIMIT 1");
-        $stmt->bind_param('i', $user_id);
-        $stmt->execute();
-        if($stmt->num_rows == 1) {      //se l'utente esiste
-            $result = $stmt->get_result();
-            return $result->fetch_all(MYSQLI_ASSOC);
-        } else {
-            return false;
-        }
-    }
-
     public function addAttempt($user_id, $now) {
         $this->db->query("INSERT INTO login_attempts (user_id, time) VALUES ('$user_id', '$now')");
     }

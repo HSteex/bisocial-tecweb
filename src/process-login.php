@@ -1,8 +1,6 @@
 <?php
 require_once "bootstrap.php";
 
-$dbh = new DatabaseHelper("localhost","root","","bisocial",3306);
-
 if(isset($_POST['username'], $_POST['p'])) {
     $result = $dbh->getUser($_POST['username'])[0];
     if (!empty($result)) {
@@ -14,7 +12,7 @@ if(isset($_POST['username'], $_POST['p'])) {
             $user_browser = $_SERVER['HTTP_USER_AGENT']; // Recupero il parametro 'user-agent' relativo all'utente corrente.
             $result['user_id'] = preg_replace("/[^0-9]+/", "", $result['user_id']); // ci proteggiamo da un attacco XSS
             $_SESSION['user_id'] = $result['user_id'];
-            $result['username'] = preg_replace('/[^a-zA-Z0-9_\-]+/', '', $result['username']); // ci proteggiamo da un attacco XSS
+//           $result['username'] = preg_replace('/[^a-zA-Z0-9_\-]+/', '', $result['username']); // ci proteggiamo da un attacco XSS
             $_SESSION['username'] = $result['username'];
             $_SESSION['login_string'] = hash('sha512', $password_hashed.$user_browser);
             alertBoxRedirect("Accesso effettuato", "index.php");
