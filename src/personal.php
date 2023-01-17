@@ -1,8 +1,10 @@
 <?php
 require_once "bootstrap.php";
 
-$pagina = "post-load-personal.php";
+loginCheck($dbh);
 
+$titolo = "Personal";
+$pagina = "post-load-personal.php";
 
 require("template-in.php");
 ?>

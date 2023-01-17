@@ -10,7 +10,7 @@ if(isset($_POST['username'], $_POST['p'])) {
             // DA IMPLEMENTARE
         } else if ($result['password'] == $password_hashed) {
             $user_browser = $_SERVER['HTTP_USER_AGENT']; // Recupero il parametro 'user-agent' relativo all'utente corrente.
-            $result['user_id'] = preg_replace("/[^0-9]+/", "", $result['user_id']); // ci proteggiamo da un attacco XSS
+//            $result['user_id'] = preg_replace("/[^0-9]+/", "", $result['user_id']); // ci proteggiamo da un attacco XSS
             $_SESSION['user_id'] = $result['user_id'];
 //           $result['username'] = preg_replace('/[^a-zA-Z0-9_\-]+/', '', $result['username']); // ci proteggiamo da un attacco XSS
             $_SESSION['username'] = $result['username'];

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title><?php echo $titolo ?></title>
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 
 <body style="background: rgb(45, 44, 56);">
@@ -26,7 +26,9 @@
                             <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"></path>
                         </svg></span><span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon" style="background: #4fc3c3;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-inbox-fill">
                             <path d="M4.98 4a.5.5 0 0 0-.39.188L1.54 8H6a.5.5 0 0 1 .5.5 1.5 1.5 0 1 0 3 0A.5.5 0 0 1 10 8h4.46l-3.05-3.812A.5.5 0 0 0 11.02 4H4.98zm-1.17-.437A1.5 1.5 0 0 1 4.98 3h6.04a1.5 1.5 0 0 1 1.17.563l3.7 4.625a.5.5 0 0 1 .106.374l-.39 3.124A1.5 1.5 0 0 1 14.117 13H1.883a1.5 1.5 0 0 1-1.489-1.314l-.39-3.124a.5.5 0 0 1 .106-.374l3.7-4.625z"></path>
-                        </svg></span></div>
+                        </svg></span>
+                <a href="logout.php" class="btn btn-primary" style="background: darkred;border-width: 1px;border-color: #fff !important;font-family: 'Roboto Condensed', sans-serif;font-size: 60%;padding-top: 2px;padding-bottom: 2px;padding-right: 6px;padding-left: 6px;margin-right: 1%;margin-left: 100px;float: right">LOGOUT</a>
+            </div>
         </nav>
     </div>
 </nav>
@@ -49,6 +51,7 @@
     </div>
 </footer>
 <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/js/forms.js"></script>
 </body>
 
 </html>

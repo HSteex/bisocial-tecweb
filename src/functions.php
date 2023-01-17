@@ -12,6 +12,25 @@ function sec_session_start() {
     session_regenerate_id(); // Rigenera la sessione e cancella quella creata in precedenza.
 }
 
+function loginCheck($dbh) {
+    if(isset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['login_string'])) {
+        $login_string = $_SESSION['login_string'];
+        $username = $_SESSION['username'];
+        $user_browser = $_SERVER['HTTP_USER_AGENT'];
+        $result = $dbh->getUser($username)[0];
+        $login_check = hash('sha512', $result['password'].$user_browser);
+        if($login_check == $login_string) {
+            return true;
+        } else {
+            header("Location: login.php");
+            return false;
+        }
+    } else {
+        header("Location: login.php");
+        return false;
+    }
+}
+
 /*
 function login($username, $password) {
     // Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.

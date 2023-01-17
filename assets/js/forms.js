@@ -11,3 +11,21 @@ function formhash(form, password) {
     // Come ultimo passaggio, esegui il 'submit' del form.
     form.submit();
 }
+
+function profileEditSuccess(message) {
+    var x = document.getElementById("profile-edit");
+    x.style.backgroundColor = "lightgreen";
+    document.getElementById("profile-edit-message").innerText = message;
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    }
+}
+
+function profileEditFailure(message) {
+    var x = document.getElementById("profile-edit");
+    x.style.backgroundColor = "lightred";
+    document.getElementById("profile-edit-message").innerText = message;
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    }
+}

@@ -23,6 +23,14 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getUserInfo($user_id) {
+        $stmt = $this->db->prepare("SELECT email, password, salt, nome, cognome, bio, user_image  FROM user WHERE user_id = ? LIMIT 1");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getUserByEmail($email) {
         $stmt = $this->db->prepare("SELECT user_id, username, email, password, salt FROM user WHERE email = ? LIMIT 1");
         $stmt->bind_param('s', $username);
@@ -33,6 +41,13 @@ class DatabaseHelper{
 
     public function addAttempt($user_id, $now) {
         $this->db->query("INSERT INTO login_attempts (user_id, time) VALUES ('$user_id', '$now')");
+    }
+
+    public function updateProfile($user_id, $email, $password, $salt, $nome, $cognome, $bio, $image) {
+        $insert_stmt = $this->db->prepare("UPDATE user SET email=?,password=?,salt=?,nome=?,cognome=?,bio=?,user_image=?
+                                                 WHERE user_id=?");
+        $insert_stmt->bind_param('sssssssi',  $email, $password, $salt, $nome, $cognome, $bio, $image, $user_id);
+        $insert_stmt->execute();
     }
 
     public function checkBrute($user_id) {
