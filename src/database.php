@@ -31,6 +31,51 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getUserDetail($username){
+        $stmt = $this->db->prepare("SELECT user_id, username, nome,cognome ,bio,user_image, back_image FROM user WHERE username = ? LIMIT 1");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getFollowers($user_id) {
+        $stmt = $this->db->prepare("SELECT u.username
+        FROM user u
+        JOIN follower f 
+        ON 	u.user_id=f.source_id AND u.user_id
+        WHERE f.target_id =?");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    //Check if the user is following another user
+    public function isFollowing($user_id, $target_id) {
+        $stmt = $this->db->prepare("SELECT * FROM follower WHERE source_id = ?  AND target_id = ?");
+        $stmt->bind_param('ii', $user_id, $target_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if($result->num_rows == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function follow($user_id, $target_id) {
+        $stmt = $this->db->prepare("INSERT INTO follower (source_id, target_id) VALUES (?, ?)");
+        $stmt->bind_param('ii', $user_id, $target_id);
+        $stmt->execute();
+    }
+
+    public function unfollow($user_id, $target_id) {
+        $stmt = $this->db->prepare("DELETE FROM follower WHERE source_id = ? AND target_id = ?");
+        $stmt->bind_param('ii', $user_id, $target_id);
+        $stmt->execute();
+    }
+
     public function getUserByEmail($email) {
         $stmt = $this->db->prepare("SELECT user_id, username, email, password, salt FROM user WHERE email = ? LIMIT 1");
         $stmt->bind_param('s', $username);
