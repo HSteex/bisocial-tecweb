@@ -2,7 +2,10 @@
 if(($_FILES['user_image']['size'] != 0)) {
     require("image-upload.php");
 }
-if(isset($_POST['updateProfile'])) {
+if(!empty($_POST['email']) || !empty($_POST['nome']) ||
+    !empty($_POST['cognome']) || !empty($_POST['password']) ||
+    !empty($_POST['confirmpass']) || !empty($_POST['bio']) ||
+    isset($GLOBALS['uploadResponse'])) {
     require("profile-update.php");
 }
 $userImage = $dbh->getImage($_SESSION['user_id'])[0];
@@ -10,9 +13,7 @@ $userImage = $dbh->getImage($_SESSION['user_id'])[0];
 <div class="container profile profile-view" id="profile">
     <div class="row">
         <?php
-        if (!empty($_POST['email']) || !empty($_POST['nome']) ||
-            !empty($_POST['cognome']) || !empty($_POST['password']) ||
-            !empty($_POST['confirmpass']) || !empty($_POST['bio'])) {
+        if (isset($GLOBALS['updateResponse'])) {
             if (!$GLOBALS['updateResponse']) {
                 echo '<div class="col-md-12 alert-col relative">
                     <div id="profile-edit" style="display: block; background-color: lightgreen" class="alert" role="alert"><button style="float: right" data-bs-dismiss="alert" aria-label="Chiudi" type="button" class="btn-close"></button><span id="profile-edit-message">' . $updateMessage . '</span></div>
@@ -44,7 +45,7 @@ $userImage = $dbh->getImage($_SESSION['user_id'])[0];
                 <div class="avatar">
                     <div class="avatar-bg center">
                         <?php
-                        echo '<image src="/opt/lampp/htdocs/bisocial-tecweb/assets/img/propic/' . $userImage['user_image'] . '" style="height: 200px;background-size: cover;width: 200px;margin: auto;display: block;"></image>';
+                        echo '<image src="../assets/img/propic/' . $userImage['user_image'] . '" style="height: 200px;background-size: cover;width: 200px;margin: auto;display: block;"></image>';
                         ?>
                     </div>
                 </div><hr><input class="form-control form-control" type="file" name="user_image" style="font-family: 'Roboto Condensed', sans-serif;">

@@ -33,7 +33,7 @@ function updateProfile()
 
         $password = $userInfo['password'];
         $salt = $userInfo['salt'];
-        $dbh->updateProfile($_SESSION['user_id'], $email, $password, $salt, $nome, $cognome, $bio);
+        $dbh->updateProfile($_SESSION['user_id'], $email, $password, $salt, $nome, $cognome, $bio, $image);
     }
 }
 ?>

@@ -2,9 +2,10 @@
 $target_dir = "/opt/lampp/htdocs/bisocial-tecweb/assets/img/propic/";
 $imageFileType = strtolower(pathinfo(basename($_FILES["user_image"]["name"]),PATHINFO_EXTENSION));
 $target_file = $target_dir . $_SESSION['username'] . '.' . $imageFileType;
-$fileName = $_SESSION['username'] . $imageFileType;          //Usato in profile-update.php per il db
+$fileName = $_SESSION['username'] . '.' . $imageFileType;          //Usato in profile-update.php per il db
 $GLOBALS['uploadResponse'] = 0;
 $uploadMessage = "ok";
+$oldImage = $dbh->getImage($_SESSION['user_id'])[0];
 
 // Check if image file is a actual image or fake image
 if(isset($_POST["updateProfile"])) {
@@ -31,8 +32,8 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     $GLOBALS['uploadResponse'] = 1;
 }
 //Destroy the file if already exists
-if (file_exists($target_file)) {
-    unlink($target_file);
+if ($oldImage['user_image'] != NULL) {
+    unlink($target_dir . $oldImage['user_image']);
 }
 
 // Check if $GLOBALS['uploadResponse'] is set to 0 by an error
