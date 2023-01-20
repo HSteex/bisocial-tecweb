@@ -1,0 +1,7 @@
+Tecweebo appunti
+
+Rosso #b0320c rgb(241, 89, 42) 94%
+Viola #522375 rgb(102, 44, 146) 53%
+Azzurro #319090 rgb(79, 195, 195) 8%;
+
+

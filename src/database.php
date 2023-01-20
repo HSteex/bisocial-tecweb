@@ -32,7 +32,7 @@ class DatabaseHelper{
     }
 
     public function getUserDetail($username){
-        $stmt = $this->db->prepare("SELECT user_id, username, nome,cognome ,bio,user_image, back_image FROM user WHERE username = ? LIMIT 1");
+        $stmt = $this->db->prepare("SELECT user_id, username, nome,cognome ,bio,user_image FROM user WHERE username = ? LIMIT 1");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();

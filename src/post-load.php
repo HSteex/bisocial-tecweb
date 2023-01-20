@@ -1,4 +1,4 @@
-<div class="col mb-5" style="max-width:1024px;border-radius: 15px;margin-top: 10px;margin-right: 10px;margin-bottom: 10px !important;margin-left: 10px;border: 4px solid #662c94;max-width: 1024px;margin:auto;">
+<div class="col mb-5" style="max-width:1024px;border-radius: 15px;border: 4px solid #662c94;max-width: 860px;margin-top: 32px;margin-right: auto;margin-left: auto;">
     <div class="card shadow-sm" style="background: rgb(45,44,56);">
         <div class="card-body px-4 py-5 px-md-5" style="border-radius: 4px;background: rgb(45,44,56);">
             <div class="row">
