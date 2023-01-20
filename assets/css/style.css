@@ -1,7 +1,14 @@
-/* Create a div propic rounded with centered image inside */
+:root {
+  --background-color: #27262e; /* accessible everywhere */
+  --color-blue: #4FC3C3;
+  --color-red: #F1592A;
+}
+
+
+
 body {
-    background-color: #27262e;
-    
+    background-color: var(--background-color);
+    color: white;   
 }
 
 .form-label {
@@ -13,7 +20,7 @@ button.followButton{
     border: none;
     border-radius: 20px;
     width: 120px;
-    margin-top: 32px;
+
     text-align: center;
     font-weight: bold;
     cursor: pointer;
@@ -27,12 +34,11 @@ button.center{
 
 
 button.follow{
-    background-color: #1DA1F2;
+    background-color: var(--color-blue);
 }
 
 button.unfollow{
-    background-color: #ff0000;
-
+    background-color: var(--color-red);
 }
 
 button.unfollow:hover{
@@ -56,29 +62,34 @@ img.coverimage {
 }
 
 img.profilepicture {
-  margin:auto;
-  height: 100%;
+  width: 100%;
 }
 
 div.profilepicture {
-  margin-left: 10%;
   overflow: hidden;
   border-radius: 100%;
   border: 1px solid white;
   /*border-color: white;*/
   /*border-width: thick;*/
   width: 100px;
-    height: 100px;  
+  height: 100px;  
+}
+
+div.col{
+  margin-right: 0;
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 div.propicfollower{
+    margin-right: 24px;
     width: 40px;
     height: 40px;
 }
 
 
 div.propicposition{
-    
     /*display: flex;*/
     z-index: 10;
     position: absolute;
@@ -136,10 +147,42 @@ div.center>p{
   color: white;
 }
 
-div.follower-count{
+.row{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+
+ div.follower-count{
   padding-left: 20%;
   padding-right: 20%;
+} 
+
+div.underline{
+  width: 100%;
+  border-bottom: 1px solid white;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
+
+div.custom-row{
+  display: flex;
+  width: auto;
+
+}
+
+div.follower-username{
+  width: auto;
+  /*Center the text vertically */
+  display: flex;
+  align-items: center;
+  /*Center the text horizontally */
+  justify-content: center;
+}
+
+
+
+
 
 
 

@@ -34,15 +34,18 @@ function generateFollower($user){
         $propic = IMG.'propic-placeholder.jpg';
     }
 
-    $html = '<div class="row">
-    <div class="profilepicture propicfollower col-4">
+    $html = '<div class="custom-row">
+    
+        <div class="profilepicture propicfollower ">
         <img class="profilepicture" src="'.$propic.'" alt="follower-image">
     </div>
-    <div class="follower-info col">
+    <div >
         <div class="follower-username  ">
             <a href="profile.php?username='.$user['username'].'">'.$user['username'].'</a>
         </div>
+    </div>
     </div>';
+
     return $html;
 
 }
@@ -60,9 +63,11 @@ function generateFollower($user){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
 </head>
 <body>
-    <?php for ($i=0; $i < count($followers); $i++) { 
+    <?php 
+    for ($i=0; $i < count($followers); $i++) { 
         echo generateFollower($followers[$i]);
-    } ?> 
+    } 
+    ?> 
 </body>
 </html>
 

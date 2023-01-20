@@ -32,22 +32,7 @@ if($user['username']==$_SESSION['username']){
 }
 
 //Check if user is following profile owner
-if($dbh->isFollowing($_SESSION['user_id'], $user['user_id'])){
-    $isFollowing=true;
-}else{
-    $isFollowing=false;
-}
-// if(isset($_POST['follow'])){
-//     if($isFollowing){
-//         $dbh->unfollow($_SESSION['user_id'], $user['user_id']);
-//         $isFollowing=false;
-//     }else{
-//         $dbh->follow($_SESSION['user_id'],  $user['user_id']);
-//         $isFollowing=true;
-    
-//     }
-
-// }
+$isFollowing=$dbh->isFollowing($_SESSION['user_id'], $user['user_id']);
 
 if(isset($_POST['unfollow'])) {
     $dbh->unfollow($_SESSION['user_id'], $user['user_id']);
@@ -73,6 +58,7 @@ if(isset($_POST['follow'])) {
     </head>
     
     <body> -->
+    
         <?php
         //Print menu bar if user is profile owner
         if($isOwner){
@@ -80,7 +66,7 @@ if(isset($_POST['follow'])) {
         }
         ?>
         <div class="profilepicture center margin">
-            <img class="propilepicture" <?php
+            <img class="profilepicture" <?php
             //Print user cover image if set else print default image
             if(file_exists('../assets/img/propic/'.$user['username'].'.jpg')){
                 echo 'src="../assets/img/propic/'.$user['username'].'.jpg"';
@@ -115,57 +101,35 @@ if(isset($_POST['follow'])) {
             
         </div>
         <div class="row follower-count margin">
-            <div class="col">
+            <div class="col-6">
                 <div class="center">
-                    <p>Followers: <b><?php echo $followers["followers"] ?></b><p>
+                    <p>Followers: <b id="followers"><?php echo $followers["followers"] ?></b><p>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <div class="center">
                     <p>Following: <b><?php echo $followers["following"] ?></b></p>
                 </div>
             </div>
         </div>
-        
         <?php 
         //if user is not profile owner, print follow/unfollow button
         if(!$isOwner){
-            if($isFollowing){
-                echo '<button class="btn btn-primary followButton center unfollow" type="submit" name="unfollow" value="unfollow">Unfollow</button>';
-            }else{
-                echo '<button class="btn btn-primary followButton center follow" type="submit" name="follow" value="follow">Follow</button>';
-            }
+            echo '<button class="btn btn-primary followButton center '.($isFollowing? "unfollow" : "follow" ).' type="button" onclick="toggleFollow(1,'.$user['user_id'].')" id="follow-button" name="follow-button" value="1">'.($isFollowing ? "Unfollow" : "Follow" ).'</button>';
         }
         ?>
-        <button class="btn btn-primary followButton center follow" type="button" onclick="toggleFollow(1)" id="follow-button" name="follow-button" value="1">Follow</button>
         
+        
+        <script src="../assets/js/ajax-functions.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-        <script>
-
-            function toggleFollow($followFlag){
-                //Use ajax to follow/unfollow
-                $.ajax({
-                    type: "POST",
-                    url: "follow-process.php",
-                    data: {follow: $followFlag,isFollowing: <?php if($dbh->isFollowing($_SESSION['user_id'], $user['user_id'])){echo 1;}else{echo 0;} ?>, user_id: <?php echo $user['user_id'] ?>},
-                    success: function(data){
-                        console.log(data.status);
-                        //If follow is successful, change follow-button button text
-                        if(data.status=="followed"){
-                            $("#follow-button").text("Unfollow");
-                           
-                        }else{
-                            $("#follow-button").text("Follow");}
-                    }
-                });
-            }
-            
-        </script>
-                
-        <div class="btn-group post_media" role="group"><button class="btn line" type="button">Post</button><button class="btn" type="button">Media</button></div>
         
-        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+        
+        <div class="center underline">
+            <b>Post</b>
+        </div>
+
+        
+    
     <!-- </body>
 
 </html> -->
