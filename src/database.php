@@ -137,6 +137,14 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getImage($user_id) {
+        $stmt = $this->db->prepare("SELECT user_image FROM user WHERE user_id = ? LIMIT 1");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function addAttempt($user_id, $now) {
         $this->db->query("INSERT INTO login_attempts (user_id, time) VALUES ('$user_id', '$now')");
     }

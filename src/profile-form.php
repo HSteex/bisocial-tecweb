@@ -1,72 +1,54 @@
 <?php
-//DA FINIRE, FAR USCIRE L'ALERT IN BASE ALLA RESPONSE
-$GLOBALS['response'] = 0;
-if (isset($_POST['updateProfile']) && $_SERVER['REQUEST_METHOD'] == "POST") {
-    updateProfile();
+if(($_FILES['user_image']['size'] != 0)) {
+    require("image-upload.php");
 }
-
-function updateProfile()
-{
-    $dbh = new DatabaseHelper("localhost","root","","bisocial",3306);
-    $result = $dbh->getUserInfo($_SESSION['user_id'])[0];
-
-    $email = !empty($_POST['email']) ? $_POST['email'] : $result['email'];
-    $nome = !empty($_POST['nome']) ? $_POST['nome'] : (!empty($result['nome']) ? $result['nome'] : NULL);
-    $cognome = !empty($_POST['cognome']) ? $_POST['cognome'] : (!empty($result['cognome']) ? $result['cognome'] : NULL);
-    $bio = !empty($_POST['bio']) ? $_POST['bio'] : (!empty($result['bio']) ? $result['bio'] : NULL);
-    $image = !empty($_POST['user_image']) ? $_POST['user_image'] : (!empty($result['user_image']) ? $result['user_image'] : NULL);
-
-    if (!empty($_POST['password'])) {
-        if (!empty($_POST['confirmpass'])) {
-            if ($_POST['password'] == $_POST['confirmpass']) {
-                $salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
-                $password = hash('sha512', $_POST['password'] . $salt);
-                $dbh->updateProfile($_SESSION['user_id'], $email, $password, $salt, $nome, $cognome, $bio, $image);
-            } else {
-                $GLOBALS['response'] = 1;
-            }
-        } else {
-            $GLOBALS['response'] = 2;
-        }
-    } else {
-        $GLOBALS['response'] = 3;
-        $password = $result['password'];
-        $salt = $result['salt'];
-        $dbh->updateProfile($_SESSION['user_id'], $email, $password, $salt, $nome, $cognome, $bio, $image);
-    }
+if(!empty($_POST['email']) || !empty($_POST['nome']) ||
+    !empty($_POST['cognome']) || !empty($_POST['password']) ||
+    !empty($_POST['confirmpass']) || !empty($_POST['bio']) ||
+    isset($GLOBALS['uploadResponse'])) {
+    require("profile-update.php");
 }
+$userImage = $dbh->getImage($_SESSION['user_id'])[0];
 ?>
 <div class="container profile profile-view" id="profile">
     <div class="row">
         <?php
-        if (!empty($GLOBALS['response'])) {
-            switch ($GLOBALS['response']) {
-                case 3:
-                    echo '<div class="col-md-12 alert-col relative">
-                <div id="profile-edit" style="display: block; background-color: lightgreen" class="alert" role="alert"><button style="float: right" data-bs-dismiss="alert" aria-label="Chiudi" type="button" class="btn-close"></button><span id="profile-edit-message">Profilo modificato correttamente</span></div>
-            </div>';
-                    break;
-                case 1:
-                    echo '<div class="col-md-12 alert-col relative">
-                <div id="profile-edit" style="display: block; background-color: lightcoral" class="alert" role="alert"><button style="float: right" data-bs-dismiss="alert" aria-label="Chiudi" type="button" class="btn-close"></button><span id="profile-edit-message">Le due password non sono uguali</span></div>
-            </div>';
-                    break;
-                case 2:
-                    echo '<div class="col-md-12 alert-col relative">
-                <div id="profile-edit" style="display: block; background-color: lightcoral" class="alert" role="alert"><button style="float: right" data-bs-dismiss="alert" aria-label="Chiudi" type="button" class="btn-close"></button><span id="profile-edit-message">La password di conferma non è stata inserita</span></div>
-            </div>';
+        if (isset($GLOBALS['updateResponse'])) {
+            if (!$GLOBALS['updateResponse']) {
+                echo '<div class="col-md-12 alert-col relative">
+                    <div id="profile-edit" style="display: block; background-color: lightgreen" class="alert" role="alert"><button style="float: right" data-bs-dismiss="alert" aria-label="Chiudi" type="button" class="btn-close"></button><span id="profile-edit-message">' . $updateMessage . '</span></div>
+                </div>';
+            } else {
+                echo '<div class="col-md-12 alert-col relative">
+                    <div id="profile-edit" style="display: block; background-color: lightcoral" class="alert" role="alert"><button style="float: right" data-bs-dismiss="alert" aria-label="Chiudi" type="button" class="btn-close"></button><span id="profile-edit-message">' . $updateMessage . '</span></div>
+                </div>';
             }
+            unset($GLOBALS['updateResponse']);
+        }
+        if (isset($GLOBALS['uploadResponse'])) {
+            if (!$GLOBALS['uploadResponse']) {
+                echo '<div class="col-md-12 alert-col relative">
+                    <div id="profile-edit" style="display: block; background-color: lightgreen" class="alert" role="alert"><button style="float: right" data-bs-dismiss="alert" aria-label="Chiudi" type="button" class="btn-close"></button><span id="profile-edit-message">' . $uploadMessage . '</span></div>
+                </div>';
+            } else {
+                echo '<div class="col-md-12 alert-col relative">
+                    <div id="profile-edit" style="display: block; background-color: lightcoral" class="alert" role="alert"><button style="float: right" data-bs-dismiss="alert" aria-label="Chiudi" type="button" class="btn-close"></button><span id="profile-edit-message">' . $uploadMessage . '</span></div>
+                </div>';
+            }
+            unset($GLOBALS['uploadResponse']);
         }
         ?>
     </div>
-    <form method="post" class="profile" name="profile-form">
+    <form method="post" class="profile" name="profile-form" enctype="multipart/form-data">
         <div class="row profile-row" style="margin:20px 0px">
             <div class="col-md-4 relative">
                 <div class="avatar">
-                    <div class="avatar-bg center" >
-                        <image src="/bisocial-tecweb/resources/profile.png" style="height: 200px;background-size: cover;width: 200px;margin: auto;display: block;"></image>
+                    <div class="avatar-bg center">
+                        <?php
+                        echo '<image src="../assets/img/propic/' . $userImage['user_image'] . '" style="height: 200px;background-size: cover;width: 200px;margin: auto;display: block;"></image>';
+                        ?>
                     </div>
-                </div><input class="form-control form-control" type="file" name="user_image" style="font-family: 'Roboto Condensed', sans-serif;">
+                </div><hr><input class="form-control form-control" type="file" name="user_image" style="font-family: 'Roboto Condensed', sans-serif;">
                 <hr>
                 <div class="form-group mb-3"><label class="form-label" style="font-family: 'Roboto Condensed', sans-serif;">Bio</label><input class="form-control" type="text" autocomplete="off" name="bio"></div>
             </div>
