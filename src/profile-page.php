@@ -114,6 +114,11 @@ if(isset($_POST['follow'])) {
             </i>
             
         </div>
+
+        <div class="center">
+        <button class="btn btn-primary updateProfile center" onclick="window.location.href='profile.php';" type="submit" name="updateProfile" value="updateProfile">Update Profile</button>
+        </div>
+
         <div class="row follower-count margin">
             <div class="col">
                 <div class="center">

@@ -1,3 +1,7 @@
+/* @red: #b0320c;
+@purple: #522375;
+@blu: #319090; */
+
 /* Create a div propic rounded with centered image inside */
 body {
     background-color: #27262e;
@@ -25,9 +29,16 @@ button.center{
     margin-right: auto;
 }
 
+.btn-primary{
+  border-radius: 10px !important;
+}
+
+button.updateProfile{
+  background-color: #c54b26;
+}
 
 button.follow{
-    background-color: #1DA1F2;
+    background-color: #319090 !important;
 }
 
 button.unfollow{
@@ -140,6 +151,28 @@ div.follower-count{
   padding-left: 20%;
   padding-right: 20%;
 }
+
+.navbar-light{
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 10px;
+}
+
+.bi-search-heart-fill{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.bi-bell-fill{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.bi-inbox-fill{
+  margin-left: 5px;
+  margin-right: 25px;
+}
+
 
 
 
