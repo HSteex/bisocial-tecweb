@@ -51,6 +51,32 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPostsOfPersonal($user_id){
+        $stmt = $this->db->prepare("SELECT u.username, u.user_image, u.nome, u.cognome ,p.* 
+        from `user` u 
+        join post p on u.user_id=p.creator_id 
+        where u.user_id =?");
+        $stmt->bind_param('i', $user_id, $index);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getPostsOfFollowing($user_id, $index){
+        $stmt = $this->db->prepare("SELECT u.username, u.user_image, u.nome, u.cognome, p.*
+        from follower f 
+        join `user` u on target_id =user_id 
+        join post p on  f.target_id=p.creator_id
+        where source_id =?
+        order by p.created_at desc
+        LIMIT 10 OFFSET ?*10"
+        );
+        $stmt->bind_param('ii', $user_id, $index);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     //Check if the user is following another user
     public function isFollowing($user_id, $target_id) {
         $stmt = $this->db->prepare("SELECT * FROM follower WHERE source_id = ?  AND target_id = ?");
@@ -64,10 +90,37 @@ class DatabaseHelper{
         }
     }
 
-    public function follow($user_id, $target_id) {
-        $stmt = $this->db->prepare("INSERT INTO follower (source_id, target_id) VALUES (?, ?)");
-        $stmt->bind_param('ii', $user_id, $target_id);
+    public function getFollowersCount($user_id){
+        $follow=array();
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM follower WHERE target_id = ?");
+        $stmt->bind_param('i', $user_id);
         $stmt->execute();
+        $result = $stmt->get_result();
+        $follow['followers']=$result->fetch_all(MYSQLI_ASSOC)[0]["COUNT(*)"];
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM follower WHERE source_id = ?");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $follow['following']=$result->fetch_all(MYSQLI_ASSOC)[0]["COUNT(*)"];
+        return $follow;
+    }
+
+    public function toggleFollow($user_id, $target_id, $flag) {
+        $stmt = $this->db->prepare("SELECT  follower (source_id, target_id) VALUES (?, ?)");
+    }
+
+    public function follow($user_id, $target_id) {
+        try {
+            $stmt = $this->db->prepare("INSERT INTO follower (source_id, target_id) VALUES (?, ?)");
+            $stmt->bind_param('ii', $user_id, $target_id);
+            $stmt->execute();
+        } catch(mysqli_sql_exception $e) {
+            if($e->getCode() == 1062) {
+                echo('Already following');
+            } else {
+                throw $e;
+            }
+        }
     }
 
     public function unfollow($user_id, $target_id) {

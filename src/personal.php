@@ -3,8 +3,10 @@ require_once "bootstrap.php";
 
 loginCheck($dbh);
 
-$titolo = "Personal";
-$pagina = "post-load-personal.php";
+
+$titolo = "Pagina di ".$_GET['username'];
+
+$pagina = "profile-page.php";
 
 require("template-in.php");
 ?>
