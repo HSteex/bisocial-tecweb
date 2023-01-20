@@ -35,11 +35,11 @@ function generateFollower($user){
     }
 
     $html = '<div class="row">
-    <div class="col-4 propic follower-image">
-        <img class="propic" src="'.$propic.'" alt="follower-image">
+    <div class="profilepicture propicfollower col-4">
+        <img class="profilepicture" src="'.$propic.'" alt="follower-image">
     </div>
-    <div class="follower-info">
-        <div class="col follower-username">
+    <div class="follower-info col">
+        <div class="follower-username  ">
             <a href="profile.php?username='.$user['username'].'">'.$user['username'].'</a>
         </div>
     </div>';
@@ -62,17 +62,7 @@ function generateFollower($user){
 <body>
     <?php for ($i=0; $i < count($followers); $i++) { 
         echo generateFollower($followers[$i]);
-    } ?>
-    <!-- Template for follower-->
-    <div class="row">
-        <div class="column propic follower-image">
-            <img class="propic" src="../assets/img/propic-placeholder.jpg" alt="follower-image">
-        </div>
-        <div class=" column follower-info">
-            <div class="follower-username">
-                <a href="profile.php?username=utente">utente</a>
-            </div>
-        </div>
+    } ?> 
 </body>
 </html>
 
