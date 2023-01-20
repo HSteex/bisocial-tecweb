@@ -116,12 +116,12 @@ if(isset($_POST['follow'])) {
         </div>
         <div class="row follower-count margin">
             <div class="col">
-                <div class="center">
+                <div class="form-label">
                     <p>Followers: <b><?php echo $followers["followers"] ?></b><p>
                 </div>
             </div>
             <div class="col">
-                <div class="center">
+                <div class="form-label">
                     <p>Following: <b><?php echo $followers["following"] ?></b></p>
                 </div>
             </div>
@@ -162,10 +162,6 @@ if(isset($_POST['follow'])) {
             }
             
         </script>
-                
-        <div class="btn-group post_media" role="group"><button class="btn line" type="button">Post</button><button class="btn" type="button">Media</button></div>
-        
-        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- </body>
 
 </html> -->

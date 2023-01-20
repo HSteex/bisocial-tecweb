@@ -1,22 +1,35 @@
 <?php
-$target_dir = "/opt/lampp/htdocs/bisocial-tecweb/assets/img/propic/";
-$imageFileType = strtolower(pathinfo(basename($_FILES["user_image"]["name"]),PATHINFO_EXTENSION));
-$target_file = $target_dir . $_SESSION['username'] . '.' . $imageFileType;
-$fileName = $_SESSION['username'] . '.' . $imageFileType;          //Usato in profile-update.php per il db
+//uploadType = 0 se carico immagine profilo 1 se carico immagine post;
+if ($uploadType){
+    $target_dir = "../assets/img/posts/";
+    $imageFileType = strtolower(pathinfo(basename($_FILES["image"]["name"]), PATHINFO_EXTENSION));
+    $lastPost = $dbh->getLastPostID();
+    if (!empty($lastPost)) { $lastPost = 1; }
+    else { $lastPost++; }
+    $fileName = $lastPost . '.' . $imageFileType;
+    $target_file = $target_dir . $fileName;
+} else {
+    $target_dir = "../assets/img/propic/";
+    $imageFileType = strtolower(pathinfo(basename($_FILES["image"]["name"]), PATHINFO_EXTENSION));
+    $fileName = $_SESSION['username'] . '.' . $imageFileType;
+    $target_file = $target_dir . $fileName;
+    $oldImage = $dbh->getImage($_SESSION['user_id'])[0];
+    //Destroy the file if already exists
+    if ($oldImage['user_image'] != NULL) {
+        unlink($target_dir . $oldImage['user_image']);
+    }
+}
 $GLOBALS['uploadResponse'] = 0;
 $uploadMessage = "ok";
-$oldImage = $dbh->getImage($_SESSION['user_id'])[0];
 
 // Check if image file is a actual image or fake image
-if(isset($_POST["updateProfile"])) {
-    $check = getimagesize($_FILES["user_image"]["tmp_name"]);
-    if($check !== false) {
-        $uploadMessage = "Il file è un'immagine - " . $check["mime"];
-        $GLOBALS['uploadResponse'] = 0;
-    } else {
-        $uploadMessage = "Il file non è un'immagine";
-        $GLOBALS['uploadResponse'] = 1;
-    }
+$check = getimagesize($_FILES["user_image"]["tmp_name"]);
+if($check !== false) {
+    $uploadMessage = "Il file è un'immagine - " . $check["mime"];
+    $GLOBALS['uploadResponse'] = 0;
+} else {
+    $uploadMessage = "Il file non è un'immagine";
+    $GLOBALS['uploadResponse'] = 1;
 }
 
 // Check file size
@@ -30,10 +43,6 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     && $imageFileType != "gif" ) {
     $uploadMessage =  "Mi dispiace, solo file JPG, JPEG, PNG & GIF sono consentiti";
     $GLOBALS['uploadResponse'] = 1;
-}
-//Destroy the file if already exists
-if ($oldImage['user_image'] != NULL) {
-    unlink($target_dir . $oldImage['user_image']);
 }
 
 // Check if $GLOBALS['uploadResponse'] is set to 0 by an error

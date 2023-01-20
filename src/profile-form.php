@@ -1,5 +1,6 @@
 <?php
-if(($_FILES['user_image']['size'] != 0)) {
+if(($_FILES['image']['size'] != 0)) {
+    $uploadType = 0;
     require("image-upload.php");
 }
 if(!empty($_POST['email']) || !empty($_POST['nome']) ||
@@ -48,7 +49,7 @@ $userImage = $dbh->getImage($_SESSION['user_id'])[0];
                         echo '<image src="../assets/img/propic/' . $userImage['user_image'] . '" style="height: 200px;background-size: cover;width: 200px;margin: auto;display: block;"></image>';
                         ?>
                     </div>
-                </div><hr><input class="form-control form-control" type="file" name="user_image" style="font-family: 'Roboto Condensed', sans-serif;">
+                </div><hr><input class="form-control form-control" type="file" name="image" style="font-family: 'Roboto Condensed', sans-serif;">
                 <hr>
                 <div class="form-group mb-3"><label class="form-label" style="font-family: 'Roboto Condensed', sans-serif;">Bio</label><input class="form-control" type="text" autocomplete="off" name="bio"></div>
             </div>
@@ -66,7 +67,7 @@ $userImage = $dbh->getImage($_SESSION['user_id'])[0];
                 <div class="form-group mb-3"><label class="form-label" style="font-family: 'Roboto Condensed', sans-serif;">Email </label><input class="form-control" type="email" autocomplete="off" name="email"></div>
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <div class="form-group mb-3"><label class="form-label" style="font-family: 'Roboto Condensed', sans-serif;">Password </label><input class="form-control" type="password" name="password" autocomplete="off"></div>
+                        <div class="form-group mb-3"><label class="form-label" style="font-family: 'Roboto Condensed', sans-serif;">Password </label><input class="form-control" type="password" name="p" id="password" autocomplete="off"></div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group mb-3"><label class="form-label" style="font-family: 'Roboto Condensed', sans-serif;">Conferma Password</label><input class="form-control" type="password" name="confirmpass" autocomplete="off"></div>
@@ -74,7 +75,7 @@ $userImage = $dbh->getImage($_SESSION['user_id'])[0];
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-md-12 content-right"><button class="btn btn-primary form-btn" name="updateProfile" value="updateProfile" onclick="pformhash(this.form, this.form.password);" type="submit" style="font-family: 'Roboto Condensed', sans-serif;padding-right: 22px;padding-left: 22px;padding-bottom: 8px;padding-top: 8px;">SAVE </button><button class="btn btn-danger form-btn" onclick="document.getElementById('profile-edit').style.display = 'none'" type="reset" style="font-family: 'Roboto Condensed', sans-serif;padding-right: 22px;padding-left: 22px;padding-bottom: 8px;padding-top: 8px;">CANCEL </button></div>
+                    <div class="col-md-12 content-right"><button class="btn btn-primary form-btn" name="updateProfile" value="updateProfile" onclick="formhash(this.form, this.form.password);" type="submit" style="font-family: 'Roboto Condensed', sans-serif;padding-right: 22px;padding-left: 22px;padding-bottom: 8px;padding-top: 8px;">SAVE </button><button class="btn btn-danger form-btn" onclick="document.getElementById('profile-edit').style.display = 'none'" type="reset" style="font-family: 'Roboto Condensed', sans-serif;padding-right: 22px;padding-left: 22px;padding-bottom: 8px;padding-top: 8px;">CANCEL </button></div>
                 </div>
             </div>
         </div>

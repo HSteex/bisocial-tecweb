@@ -137,8 +137,7 @@ ALTER TABLE `bisocial`.`member`
 CREATE TABLE IF NOT EXISTS `bisocial`.`post` (
                                                    `post_id` INT NOT NULL AUTO_INCREMENT,
                                                    `creator_id` INT NOT NULL,
-                                                   `community_id` INT,
-                                                   `description` TINYTEXT NOT NULL,
+                                                   `description` TINYTEXT,
                                                    `created_at` DATE NOT NULL,
                                                    `post_image` VARCHAR(100),
                                                    PRIMARY KEY (`post_id`),
@@ -149,13 +148,6 @@ CREATE TABLE IF NOT EXISTS `bisocial`.`post` (
                                                            ON DELETE NO ACTION
                                                            ON UPDATE NO ACTION)
     ENGINE = InnoDB;
-
-ALTER TABLE `bisocial`.`post`
-    ADD CONSTRAINT `fk_post_community`
-        FOREIGN KEY (`community_id`)
-            REFERENCES `bisocial`.`community` (`community_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION;
 
 
 -- -----------------------------------------------------

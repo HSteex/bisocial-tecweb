@@ -32,7 +32,7 @@ class DatabaseHelper{
     }
 
     public function getUserDetail($username){
-        $stmt = $this->db->prepare("SELECT user_id, username, nome,cognome ,bio,user_image, back_image FROM user WHERE username = ? LIMIT 1");
+        $stmt = $this->db->prepare("SELECT user_id, username, nome,cognome ,bio,user_image FROM user WHERE username = ? LIMIT 1");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -143,6 +143,19 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getLastPostID() {
+        $stmt = $this->db->prepare("SELECT post_id FROM post ORDER BY post_id DESC LIMIT 1");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addPost($user_id, $description, $created_at, $post_image) {
+        $insert_stmt = $this->db->prepare("INSERT INTO post (creator_id, description, created_at, post_image) VALUES (?, ?, ?, ?)");
+        $insert_stmt->bind_param('isss', $user_id, $description, $created_at, $post_image);
+        $insert_stmt->execute();
     }
 
     public function addAttempt($user_id, $now) {
