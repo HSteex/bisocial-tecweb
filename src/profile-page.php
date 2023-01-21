@@ -80,12 +80,12 @@ if(isset($_POST['follow'])) {
         }
         ?>
         <div class="profilepicture center margin">
-            <img class="propilepicture" <?php
+            <img class="profilepicture" <?php
             //Print user cover image if set else print default image
             if(file_exists('../assets/img/propic/'.$user['username'].'.jpg')){
                 echo 'src="../assets/img/propic/'.$user['username'].'.jpg"';
             }else{
-                echo 'src="../assets/img/propic-placeholder.jpg"';
+                echo 'src="../assets/img/propic"'.$_SESSION['username'].'"jpg"';
             }
 
             ?> alt="Foto profilo">
@@ -114,14 +114,19 @@ if(isset($_POST['follow'])) {
             </i>
             
         </div>
+
+        <div class="center">
+        <button class="btn btn-primary updateProfile center" onclick="window.location.href='profile.php';" type="submit" name="updateProfile" value="updateProfile">Update Profile</button>
+        </div>
+
         <div class="row follower-count margin">
             <div class="col">
-                <div class="form-label">
+                <div class="center">
                     <p>Followers: <b><?php echo $followers["followers"] ?></b><p>
                 </div>
             </div>
             <div class="col">
-                <div class="form-label">
+                <div class="center">
                     <p>Following: <b><?php echo $followers["following"] ?></b></p>
                 </div>
             </div>
@@ -162,6 +167,10 @@ if(isset($_POST['follow'])) {
             }
             
         </script>
+
+        <div class="btn-group post_media" role="group"><button class="btn line" type="button">Post</button><button class="btn" type="button">Media</button></div>
+        
+        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- </body>
 
 </html> -->
