@@ -3,8 +3,8 @@
 if ($uploadType){
     $target_dir = "../assets/img/posts/";
     $imageFileType = strtolower(pathinfo(basename($_FILES["image"]["name"]), PATHINFO_EXTENSION));
-    $lastPost = $dbh->getLastPostID();
-    if (!empty($lastPost)) { $lastPost = 1; }
+    $lastPost = $dbh->getLastPostID()[0]['post_id'];
+    if (empty($lastPost)) { $lastPost = 1; }
     else { $lastPost++; }
     $fileName = $lastPost . '.' . $imageFileType;
     $target_file = $target_dir . $fileName;
@@ -22,18 +22,18 @@ if ($uploadType){
 $GLOBALS['uploadResponse'] = 0;
 $uploadMessage = "ok";
 
-// Check if image file is a actual image or fake image
-$check = getimagesize($_FILES["user_image"]["tmp_name"]);
+/*// Check if image file is a actual image or fake image
+$check = getimagesize($_FILES["image"]["tmp_name"]);
 if($check !== false) {
     $uploadMessage = "Il file è un'immagine - " . $check["mime"];
     $GLOBALS['uploadResponse'] = 0;
 } else {
     $uploadMessage = "Il file non è un'immagine";
     $GLOBALS['uploadResponse'] = 1;
-}
+}*/
 
 // Check file size
-if ($_FILES["user_image"]["size"] > 500000) {
+if ($_FILES["image"]["size"] > 500000) {
     $uploadMessage =  "Mi dispiace, la tua immagine è troppo grande";
     $GLOBALS['uploadResponse'] = 1;
 }
@@ -47,7 +47,7 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 
 // Check if $GLOBALS['uploadResponse'] is set to 0 by an error
 if ($GLOBALS['uploadResponse'] == 0) {
-    if (move_uploaded_file($_FILES["user_image"]["tmp_name"], $target_file)) {
+    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
         $uploadMessage =  "L'immagine è stata caricata";
     } else {
         $GLOBALS['uploadResponse'] = 1;

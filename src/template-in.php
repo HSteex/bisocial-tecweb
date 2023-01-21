@@ -40,6 +40,7 @@
 </header>
 <main>
     <?php
+        require("post-load-alert.php");
         require($pagina);
         require("post-form.php");
     ?>
