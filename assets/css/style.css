@@ -175,16 +175,13 @@ div.underline{
 div.custom-row{
   display: flex;
   width: auto;
-
+  margin-bottom: 12px;
 }
 
 div.follower-username{
-  width: auto;
-  /*Center the text vertically */
   display: flex;
-  align-items: center;
-  /*Center the text horizontally */
-  justify-content: center;
+  align-items: center; /* Vertical */
+  justify-content: center; /* Horizontal */
 }
 
 .navbar-light{
@@ -207,6 +204,7 @@ div.follower-username{
   margin-left: 5px;
   margin-right: 25px;
 }
+
 
 
 
