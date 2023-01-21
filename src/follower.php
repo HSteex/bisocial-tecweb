@@ -40,8 +40,8 @@ function generateFollower($user){
         <img class="profilepicture" src="'.$propic.'" alt="follower-image">
     </div>
     <div >
-        <div class="follower-username  ">
-            <a href="profile.php?username='.$user['username'].'">'.$user['username'].'</a>
+        <div class="follower-username">
+            <a href="personal.php?username='.$user['username'].'">'.$user['username'].'</a>
         </div>
     </div>
     </div>';
