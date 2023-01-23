@@ -2,7 +2,8 @@
 //uploadType = 0 se carico immagine profilo 1 se carico immagine post;
 if ($uploadType){
     $target_dir = "../assets/img/posts/";
-    $imageFileType = strtolower(pathinfo(basename($_FILES["image"]["name"]), PATHINFO_EXTENSION));
+    $image = $_FILES['post_image'];
+    $imageFileType = strtolower(pathinfo(basename($image['name']), PATHINFO_EXTENSION));
     $lastPost = $dbh->getLastPostID()[0]['post_id'];
     if (empty($lastPost)) { $lastPost = 1; }
     else { $lastPost++; }
@@ -10,7 +11,8 @@ if ($uploadType){
     $target_file = $target_dir . $fileName;
 } else {
     $target_dir = "../assets/img/propic/";
-    $imageFileType = strtolower(pathinfo(basename($_FILES["image"]["name"]), PATHINFO_EXTENSION));
+    $image = $_FILES['user_image'];
+    $imageFileType = strtolower(pathinfo(basename($image['name']), PATHINFO_EXTENSION));
     $fileName = $_SESSION['username'] . '.' . $imageFileType;
     $target_file = $target_dir . $fileName;
     $oldImage = $dbh->getImage($_SESSION['user_id'])[0];
@@ -33,7 +35,7 @@ if($check !== false) {
 }*/
 
 // Check file size
-if ($_FILES["image"]["size"] > 500000) {
+if ($image["size"] > 500000) {
     $uploadMessage =  "Mi dispiace, la tua immagine è troppo grande";
     $GLOBALS['uploadResponse'] = 1;
 }
@@ -47,7 +49,7 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 
 // Check if $GLOBALS['uploadResponse'] is set to 0 by an error
 if ($GLOBALS['uploadResponse'] == 0) {
-    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+    if (move_uploaded_file($image["tmp_name"], $target_file)) {
         $uploadMessage =  "L'immagine è stata caricata";
     } else {
         $GLOBALS['uploadResponse'] = 1;

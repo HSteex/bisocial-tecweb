@@ -1,5 +1,5 @@
 <?php
-if (!empty($_FILES['image'])) {
+if (!empty($_FILES['post_image'])) {
     $uploadType = 1;
     if (!empty($_POST['description'])) {
         require("image-upload.php");

@@ -2,10 +2,10 @@
 require_once "bootstrap.php";
 require_once "functions.php";
 
-if(isset($_POST['username'], $_POST['email'], $_POST['p'])) {
+if(isset($_POST['username'], $_POST['email'], $_POST['password'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $password = $_POST['p'];
+    $password = $_POST['password'];
     $random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
     $password = hash('sha512', $password . $random_salt);
 

@@ -1,5 +1,5 @@
 <?php
-if(($_FILES['user_image']['size'] != 0)) {
+if(($_FILES['post_image']['size'] != 0)) {
     require("image-upload.php");
 }
 ?>
@@ -7,7 +7,7 @@ if(($_FILES['user_image']['size'] != 0)) {
     <div class="container profile profile-view" id="post-form">
         <form method="post" class="profile" name="profile-form" enctype="multipart/form-data">
             <div class="row profile-row post-form" style="margin:20px 0px">
-                <input class="post-form-label" type="file" name="image" style="font-family: 'Roboto Condensed', sans-serif;">
+                <input class="post-form-label" type="file" name="post_image" style="font-family: 'Roboto Condensed', sans-serif;">
             </div>
             <div class="row profile-row post-form">
                 <label class="post-form-label" style="font-family: 'Roboto Condensed', sans-serif;">Descrizione</label><input class="form-control" id="description" type="text" name="description" autocomplete="off">

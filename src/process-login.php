@@ -1,10 +1,10 @@
 <?php
 require_once "bootstrap.php";
 
-if(isset($_POST['username'], $_POST['p'])) {
+if(isset($_POST['username'], $_POST['password'])) {
     $result = $dbh->getUser($_POST['username'])[0];
     if (!empty($result)) {
-        $password_hashed = hash('sha512', $_POST['p'].$result['salt']);
+        $password_hashed = hash('sha512', $_POST['password'].$result['salt']);
         if($dbh->checkBrute($result['user_id'])) {
             alertBoxGoBack("Troppi tentativi errati, account disabilitato");
             // DA IMPLEMENTARE

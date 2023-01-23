@@ -1,7 +1,7 @@
 <?php
 $userInfo = $dbh->getUserInfo($_SESSION['user_id'])[0];
 $GLOBALS['updateResponse'] = 0;
-$updateMessage = "Profilo modificato correttamente";
+$updateMessage = "Informazioni di profilo modificate correttamente";
 if (isset($_POST['updateProfile']) && $_SERVER['REQUEST_METHOD'] == "POST") {
     updateProfile();
 }
@@ -15,11 +15,11 @@ function updateProfile()
     $bio = !empty($_POST['bio']) ? $_POST['bio'] : (!empty($userInfo['bio']) ? $userInfo['bio'] : NULL);
     $image = !empty($fileName) ? $fileName : (!empty($userInfo['user_image']) ? $userInfo['user_image'] : NULL);
 
-    if (!empty($_POST['p'])) {
+    if (!empty($_POST['password'])) {
         if (!empty($_POST['confirmpass'])) {
-            if ($_POST['p'] == $_POST['confirmpass']) {
+            if ($_POST['password'] == $_POST['confirmpass']) {
                 $salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
-                $password = hash('sha512', $_POST['p'] . $salt);
+                $password = hash('sha512', $_POST['password'] . $salt);
                 $dbh->updateProfile($_SESSION['user_id'], $email, $password, $salt, $nome, $cognome, $bio, $image);
             } else {
                 $GLOBALS['updateResponse'] = 1;       //password diverse
