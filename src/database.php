@@ -145,6 +145,19 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getLastPostID() {
+        $stmt = $this->db->prepare("SELECT post_id FROM post ORDER BY post_id DESC LIMIT 1");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addPost($user_id, $description, $created_at, $post_image) {
+        $insert_stmt = $this->db->prepare("INSERT INTO post (creator_id, description, created_at, post_image) VALUES (?, ?, ?, ?)");
+        $insert_stmt->bind_param('isss', $user_id, $description, $created_at, $post_image);
+        $insert_stmt->execute();
+    }
+
     public function addAttempt($user_id, $now) {
         $this->db->query("INSERT INTO login_attempts (user_id, time) VALUES ('$user_id', '$now')");
     }

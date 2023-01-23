@@ -85,51 +85,6 @@ ALTER TABLE `bisocial`.`message`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 
--- -----------------------------------------------------
--- Table `bisocial`.`community`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bisocial`.`community` (
-                                                    `community_id` INT NOT NULL AUTO_INCREMENT,
-                                                    `creator_id` INT NOT NULL,
-                                                    `name` VARCHAR(100) NOT NULL,
-                                                    `descrition` TINYTEXT NOT NULL,
-                                                    `created_at` DATETIME NOT NULL,
-                                                    `community_image` VARCHAR(100),
-                                                    PRIMARY KEY (`community_id`),
-                                                    INDEX `idx_community_creator` (`creator_id` ASC),
-                                                    CONSTRAINT `fk_community_creator`
-                                                        FOREIGN KEY (`creator_id`)
-                                                            REFERENCES `bisocial`.`user` (`user_id`)
-                                                            ON DELETE NO ACTION
-                                                            ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Table `bisocial`.`member`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bisocial`.`member` (
-                                                 `member_id` INT NOT NULL AUTO_INCREMENT,
-                                                 `community_id` INT NOT NULL,
-                                                 `user_id` INT NOT NULL,
-                                                 `role_id` SMALLINT NOT NULL,
-                                                 PRIMARY KEY (`member_id`),
-                                                 INDEX `idx_member_community` (`community_id` ASC),
-                                                 CONSTRAINT `fk_member_community`
-                                                     FOREIGN KEY (`community_id`)
-                                                         REFERENCES `bisocial`.`user` (`user_id`)
-                                                         ON DELETE NO ACTION
-                                                         ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-
-ALTER TABLE `bisocial`.`member`
-    ADD INDEX `idx_member_user` (`user_id` ASC);
-ALTER TABLE `bisocial`.`member`
-    ADD CONSTRAINT `fk_member_user`
-        FOREIGN KEY (`user_id`)
-            REFERENCES `bisocial`.`user` (`user_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION;
-
 
 -- -----------------------------------------------------
 -- Table `bisocial`.`post`
@@ -137,9 +92,8 @@ ALTER TABLE `bisocial`.`member`
 CREATE TABLE IF NOT EXISTS `bisocial`.`post` (
                                                    `post_id` INT NOT NULL AUTO_INCREMENT,
                                                    `creator_id` INT NOT NULL,
-                                                   `community_id` INT,
-                                                   `description` TINYTEXT NOT NULL,
-                                                   `created_at` DATE NOT NULL,
+                                                   `description` TINYTEXT,
+                                                   `created_at` DATETIME NOT NULL,
                                                    `post_image` VARCHAR(100),
                                                    PRIMARY KEY (`post_id`),
                                                    INDEX `idx_post_creator` (`creator_id` ASC),
@@ -149,13 +103,6 @@ CREATE TABLE IF NOT EXISTS `bisocial`.`post` (
                                                            ON DELETE NO ACTION
                                                            ON UPDATE NO ACTION)
     ENGINE = InnoDB;
-
-ALTER TABLE `bisocial`.`post`
-    ADD CONSTRAINT `fk_post_community`
-        FOREIGN KEY (`community_id`)
-            REFERENCES `bisocial`.`community` (`community_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION;
 
 
 -- -----------------------------------------------------

@@ -12,6 +12,33 @@ function formhash(form, password) {
     form.submit();
 }
 
+function uploadPost($post_image,$description){
+    //Use ajax to follow/unfollow
+    $.ajax({
+        type: "POST",
+        url: "post-upload.php",
+        data: {post_image: $post_image, description: $description},
+        success: function(data){
+            $dataArray=JSON.parse(data);
+            //If follow is successful, change follow-button button text
+            if($dataArray["response"]){
+                $("#upload-message").text($dataArray["message"]);
+                $("#upload-message").style.display("block");
+            } else {
+                postOverlayOff();
+            }
+        }
+    });
+}
+
+function postOverlayOn() {
+    document.getElementById("overlay").style.display = "block";
+}
+
+function postOverlayOff() {
+    document.getElementById("overlay").style.display = "none";
+}
+
 function profileEditSuccess(message) {
     var x = document.getElementById("profile-edit");
     x.style.backgroundColor = "lightgreen";
