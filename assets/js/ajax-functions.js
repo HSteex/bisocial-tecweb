@@ -9,13 +9,15 @@ function toggleLike($post_id){
         data: {like:1 , post_id: $post_id},
         success: function(data){
             console.log(data);
+            $dataArray=JSON.parse(data);
             //If like is successful, change like-button button text
-            if(data=="liked"){
-                //TODO
+            if($dataArray["status"]=="liked"){
+                
             }
-            if(data=="unliked"){
-                //TODO
+            if($dataArray["status"]=="unliked"){
+                
             }
+           $("#likes-count-"+$post_id).text($dataArray["likes"]);
         }
     });
 }

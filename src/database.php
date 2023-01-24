@@ -102,13 +102,13 @@ class DatabaseHelper{
         }
     }
 
-    public function tooggleLike($user_id, $post_id, $like_bool){
-        if($like_bool){
-            $stmt = $this->db->prepare("INSERT INTO 'like' (user_id, post_id) VALUES (?, ?)");
+    public function toggleLike($user_id, $post_id, $like_bool){
+        if(!$like_bool){
+            $stmt = $this->db->prepare("INSERT INTO `like` (user_id, post_id) VALUES (?, ?)");
             $stmt->bind_param('ii', $user_id, $post_id);
             $stmt->execute();
         } else {
-            $stmt = $this->db->prepare("DELETE FROM 'like' WHERE user_id = ?  AND post_id = ?");
+            $stmt = $this->db->prepare("DELETE FROM `like` WHERE user_id = ?  AND post_id = ?");
             $stmt->bind_param('ii', $user_id, $post_id);
             $stmt->execute();
         }
@@ -116,7 +116,8 @@ class DatabaseHelper{
 
     //Check if the user already liked a post
     public function isLiked($user_id, $post_id) {
-        $stmt = $this->db->prepare("SELECT * FROM 'like' WHERE user_id = ?  AND post_id = ?");
+        $stmt = $this->db->prepare("SELECT * FROM `like` 
+        WHERE user_id = ?  AND post_id = ?");
         $stmt->bind_param('ii', $user_id, $post_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -129,7 +130,9 @@ class DatabaseHelper{
 
     //Get number of likes of a post
     public function getLikesCount($post_id){
-        $stmt = $this->db->prepare("SELECT COUNT(*) FROM 'like' WHERE post_id = ?");
+        $stmt = $this->db->prepare("SELECT COUNT(*) 
+        FROM `like`
+        where post_id = ?");
         $stmt->bind_param('i', $post_id);
         $stmt->execute();
         $result = $stmt->get_result();

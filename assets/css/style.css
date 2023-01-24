@@ -365,6 +365,7 @@ div.follower-count{
   height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.5);
+  z-index: 5;
 }
 
 .floating-div-content{

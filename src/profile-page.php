@@ -52,18 +52,17 @@ if(isset($_POST['follow'])) {
         if($isOwner){
             
         }
-        require 'follower.php';
+        
         ?>
         <div class="profilepicture center margin">
-            <img class="profilepicture" <?php
+            <img class="profilepicture" src=" <?php
             //Print user cover image if set else print default image
-            if(file_exists('../assets/img/propic/'.$user['user_image'])){
-                echo 'src="../assets/img/propic/'.$user["user_image"].'"';
-            }else{
-                echo 'src="../assets/img/propic-placeholder.jpg"';
+            $propic = "../assets/img/propic/".$user['username'].'.jpg';
+            if(!file_exists($propic)){
+                $propic= 'src="../assets/img/propic-placeholder.jpg"';
             }
-
-            ?> alt="Foto profilo">
+            echo $propic;
+            ?>" alt="Foto profilo">
         </div>
 
         <div class="name center">
@@ -122,6 +121,7 @@ if(isset($_POST['follow'])) {
             <b>Post</b>
         </div>
         <?php
+        require 'follower.php';
         require("post-load-alert.php");
         $postType=1;
         require("post-load.php");
