@@ -122,7 +122,7 @@ if(isset($_POST['follow'])) {
         </div>
         <?php
         require 'follower.php';
-        require("post-load-alert.php");
+        require("post-upload-alert.php");
         $postType=1;
         require("post-load.php");
         ?>

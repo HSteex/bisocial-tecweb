@@ -67,7 +67,8 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("SELECT u.username, u.user_image, u.nome, u.cognome ,p.* 
         from user u 
         join `post` p on u.user_id=p.creator_id 
-        where u.user_id =?");
+        where u.user_id =?
+        order by p.created_at desc");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -210,16 +211,17 @@ class DatabaseHelper{
     public function getComments($post_id) {
         $stmt = $this->db->prepare("SELECT c.user_id, u.username, u.nome, u.cognome, u.user_image, content FROM comment c
                                           JOIN user u ON c.user_id = u.user_id
-                                          WHERE post_id = ?");
+                                          WHERE post_id = ?
+                                          ORDER BY c.created_at");
         $stmt->bind_param('i', $post_id);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addComment($post_id, $user_id, $content) {
-        $insert_stmt = $this->db->prepare("INSERT INTO comment (post_id, user_id, content) VALUES (?, ?, ?)");
-        $insert_stmt->bind_param('iis', $post_id, $user_id, $content);
+    public function addComment($post_id, $user_id, $content, $created_at) {
+        $insert_stmt = $this->db->prepare("INSERT INTO comment (post_id, user_id, content, created_at) VALUES (?, ?, ?, ?)");
+        $insert_stmt->bind_param('iiss', $post_id, $user_id, $content, $created_at);
         $insert_stmt->execute();
     }
 
