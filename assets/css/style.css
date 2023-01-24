@@ -2,6 +2,7 @@
   --background-color: #27262e; /* accessible everywhere */
   --color-blue: #4FC3C3;
   --color-red: #F1592A;
+    --color-purple: #522376;
   --text-color: white;
 }
 
@@ -309,7 +310,7 @@ div.follower-count{
     font-size: 50px;
     border-radius: 16px;
     color: white;
-    background-color: midnightblue;
+    background-color: var(--color-purple);
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
  }
@@ -397,4 +398,21 @@ div.follower-title{
   width: 300px;
   background-color: var(--background-color);
   height: 40px;
+}
+
+.floating-form{
+    position: absolute;
+    color: white;
+    float: left;
+    display: inline-block;
+    border-radius: 16px;
+    top: 500px;
+    width: 300px;
+    background-color: var(--background-color);
+    height: 40px;
+}
+
+.submit-button{
+    background-color: #F1592A;
+    color: #F1592A;
 }

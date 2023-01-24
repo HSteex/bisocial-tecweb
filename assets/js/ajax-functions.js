@@ -1,5 +1,3 @@
-
-
 //Function to toggle like/unlike
 function toggleLike($post_id){
     //Use ajax to like/unlike
@@ -19,9 +17,6 @@ function toggleLike($post_id){
         }
     });
 }
-
-
-
 
 //Function to toggle follow/unfollow
 function toggleFollow($followFlag,$user_id){
@@ -48,4 +43,29 @@ function toggleFollow($followFlag,$user_id){
     });
 }
 
+function loadComments($post_id){
+    //Use ajax to follow/unfollow
+    $.ajax({
+        type: "POST",
+        url: "comments-load.php",
+        data: {post_id: $post_id},
+        success: function(data){
+            document.getElementById("comments-container").innerHTML+=(data);
+            document.getElementById("floating-comments").style.display="block";
+        }
+    });
+}
 
+function addComment($post_id, $user_id, $content){
+    //Use ajax to follow/unfollow
+    $.ajax({
+        type: "POST",
+        url: "comment-add.php",
+        data: {post_id: $post_id, user_id: $user_id, content: $content},
+        success: function(data){
+            document.getElementById("comment-content").value = "";
+            document.getElementById("comments-container").innerHTML="";
+            loadComments($post_id);
+        }
+    });
+}

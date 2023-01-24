@@ -81,3 +81,8 @@ function followingOverlayOn() {
 function followingOverlayOff() {
     document.getElementById("floating-following").style.display = "none";
 }
+
+function closeComments(){
+    document.getElementById("comments-container").innerHTML="";
+    document.getElementById("floating-comments").style.display="none";
+}
