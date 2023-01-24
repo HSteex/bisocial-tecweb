@@ -318,6 +318,42 @@ div.follower-count{
     font-size: 18px;
 }
 
+#search-tab{
+    display: none;
+}
+
+#search-form{
+    float: right;
+    margin-left: 40%;
+    margin-top: -50px;
+    width: 20%;
+    position: absolute;
+}
+
+#search-button{
+    background: transparent;
+    border: none !important;
+    margin: 0px;
+}
+
+#search-tab{
+    display: none;
+}
+
+#search-form{
+    float: right;
+    margin-left: 40%;
+    margin-top: -50px;
+    width: 20%;
+    position: absolute;
+}
+
+#search-button{
+    background: transparent;
+    border: none !important;
+    margin: 0px;
+}
+
 
 .floating-div{
   display: none;

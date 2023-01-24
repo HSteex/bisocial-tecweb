@@ -57,8 +57,8 @@ if(isset($_POST['follow'])) {
         <div class="profilepicture center margin">
             <img class="profilepicture" <?php
             //Print user cover image if set else print default image
-            if(file_exists('../assets/img/propic/'.$user['username'].'.jpg')){
-                echo 'src="../assets/img/propic/'.$user['username'].'.jpg"';
+            if(file_exists('../assets/img/propic/'.$user['user_image'])){
+                echo 'src="../assets/img/propic/'.$user["user_image"].'"';
             }else{
                 echo 'src="../assets/img/propic-placeholder.jpg"';
             }

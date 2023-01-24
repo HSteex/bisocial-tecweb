@@ -14,9 +14,9 @@
     <div class="container"><img src="../assets/img/bisocial-logo.png" style="width: 124px;color: rgb(255,255,255);">
         <nav class="navbar navbar-light navbar-expand-md" style="background: rgb(39,38,46);display:flex;">
             <div class="container-fluid">
-            <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#b0320c" class="bi bi-search-heart-fill" viewBox="0 0 16 16" >
+            <span><button id="search-button" onclick="toggleSearchTab();"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#b0320c" class="bi bi-search-heart-fill" viewBox="0 0 16 16" >
                 <path d="M6.5 13a6.474 6.474 0 0 0 3.845-1.258h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.008 1.008 0 0 0-.115-.1A6.471 6.471 0 0 0 13 6.5 6.502 6.502 0 0 0 6.5 0a6.5 6.5 0 1 0 0 13Zm0-8.518c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z"/>
-            </svg></span>
+                    </svg></button></span>
             <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#692d98" class="bi bi-bell-fill" viewBox="0 0 16 16">
                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
             </svg></span>
@@ -31,6 +31,11 @@
     </div>
 </nav>
 <header class="bg-dark" style="background: rgb(39, 38, 46);">
+    <div id="search-tab">
+        <form action="user-search.php" method="get">
+            <input type="text" id="search-form" name="user-to-find">
+        </form>
+    </div>
     <div class="col-md-8 col-xl-6 text-center text-md-start mx-auto" style="background: rgb(45,44,56);padding-bottom: 7px;padding-top: 7px;border-radius: 32px;margin-left: 3% !important;margin-right: 3% !important;border: 0px solid rgb(38,38,38);display: inline;">
         <div class="text-center"><a href="/bisocial-tecweb/src/index.php" class="btn btn-primary" style="background: linear-gradient(-155deg, #4fc3c3 8%, #662c92 53%, #f1592a 94%), #4fc3c3;border-width: 1px;border-color: #fff !important;font-family: 'Roboto Condensed', sans-serif;font-size: 80%;padding-top: 8px;padding-bottom: 8px;padding-right: 32px;padding-left: 32px;margin-right: 1%;margin-left: 1%;">GENERAL</a><a href="/bisocial-tecweb/src/personal.php?username=<?php echo $_SESSION["username"]?>" class="btn btn-primary" style="background: linear-gradient(-155deg, #4fc3c3 8%, #662c92 53%, #f1592a 94%), #4fc3c3;border-width: 1px;border-color: #fff !important;font-family: 'Roboto Condensed', sans-serif;font-size: 80%;padding-top: 8px;padding-bottom: 8px;padding-right: 32px;padding-left: 32px;margin-right: 1%;margin-left: 1%;">PERSONAL</a></div>
     </div>

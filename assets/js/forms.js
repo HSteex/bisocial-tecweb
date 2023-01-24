@@ -12,6 +12,15 @@ function formhash(form, password) {
     form.submit();
 }
 
+function toggleSearchTab() {
+    search = document.getElementById('search-tab');
+    if (search.style.display == 'block') {
+        search.style.display = 'none';
+    } else {
+        search.style.display = 'block';
+    }
+}
+
 function uploadPost($post_image,$description){
     //Use ajax to follow/unfollow
     $.ajax({
