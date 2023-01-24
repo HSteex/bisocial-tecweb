@@ -33,7 +33,7 @@
 <header class="bg-dark" style="background: rgb(39, 38, 46);">
     <div id="search-tab">
         <form action="user-search.php" method="get">
-            <input type="text" id="search-form" name="user-to-find">
+            <input type="text" class="form-control" id="search-form" name="user-to-find" style="height: 25px">
         </form>
     </div>
     <div class="col-md-8 col-xl-6 text-center text-md-start mx-auto" style="background: rgb(45,44,56);padding-bottom: 7px;padding-top: 7px;border-radius: 32px;margin-left: 3% !important;margin-right: 3% !important;border: 0px solid rgb(38,38,38);display: inline;">
@@ -42,7 +42,7 @@
 </header>
 <main>
     <?php
-        require("post-load-alert.php");
+        require("post-upload-alert.php");
         require($pagina);
         require("post-form.php");
     ?>
@@ -60,6 +60,9 @@
 </footer>
 <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../assets/js/forms.js"></script>
+<script src="../assets/js/ajax-functions.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 </body>
 
 </html>

@@ -125,7 +125,6 @@ if(isset($_POST['follow'])) {
         require("post-load-alert.php");
         $postType=1;
         require("post-load.php");
-        require("post-form.php");
         ?>
 
         <!-- TEST LIKE BUTTON -->
