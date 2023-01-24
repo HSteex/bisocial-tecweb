@@ -2,7 +2,7 @@
 
 
 //Check if user is logged in
-if(!isset($_SESSION['username'])){
+if(!isset   ($_SESSION['username'])){
     header("Location: login.php");
 }
 
@@ -46,24 +46,13 @@ if(isset($_POST['follow'])) {
 
 
 <!------------------------ HTML ------------------------>
-<!-- <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <title><?php echo 'Pagina di '.$user['username']  ?> </title>
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../assets/css/style.css">
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
-    </head>
-    
-    <body> -->
-    
+        <script src=../assets/js/forms.js></script>
         <?php
         //Print menu bar if user is profile owner
         if($isOwner){
-            ;
+            
         }
+        require 'follower.php';
         ?>
         <div class="profilepicture center margin">
             <img class="profilepicture" <?php
@@ -108,12 +97,12 @@ if(isset($_POST['follow'])) {
         <div class="row follower-count margin">
             <div class="col-6">
                 <div class="center">
-                    <p>Followers: <b id="followers"><?php echo $followers["followers"] ?></b><p>
+                    <p onclick="followersOverlayOn()">Followers: <b id="followers"><?php echo $followers["followers"] ?></b><p>
                 </div>
             </div>
             <div class="col-6">
                 <div class="center">
-                    <p>Following: <b><?php echo $followers["following"] ?></b></p>
+                    <p onclick="followingOverlayOn()">Following: <b><?php echo $followers["following"] ?></b></p>
                 </div>
             </div>
         </div>
@@ -125,7 +114,7 @@ if(isset($_POST['follow'])) {
         ?>
         
         
-        <script src="../assets/js/ajax-functions.js"></script>
+        
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         
         
@@ -133,8 +122,12 @@ if(isset($_POST['follow'])) {
             <b>Post</b>
         </div>
 
+        <!-- TEST LIKE BUTTON -->
+        <div>
+        <object style="fill: white" type="image/svg+xml" data="../assets/like-icon.svg"></object>
+        </div>
+        <script src="../assets/js/ajax-functions.js"></script>
         
-    
     <!-- </body>
 
 </html> -->

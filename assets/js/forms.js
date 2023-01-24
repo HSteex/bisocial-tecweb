@@ -56,3 +56,19 @@ function profileEditFailure(message) {
         x.style.display = "block";
     }
 }
+
+function followersOverlayOn() {
+    document.getElementById("floating-followers").style.display = "block";
+}
+
+function followersOverlayOff() {
+    document.getElementById("floating-followers").style.display = "none";
+}
+
+function followingOverlayOn() {
+    document.getElementById("floating-following").style.display = "block";
+}
+
+function followingOverlayOff() {
+    document.getElementById("floating-following").style.display = "none";
+}

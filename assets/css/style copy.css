@@ -2,7 +2,6 @@
   --background-color: #27262e; /* accessible everywhere */
   --color-blue: #4FC3C3;
   --color-red: #F1592A;
-  --text-color: white;
 }
 
 
@@ -74,7 +73,7 @@ img.coverimage {
 }
 
 img.profilepicture {
-  height: 100%;
+  width: 100%;
 }
 
 div.profilepicture {
@@ -104,7 +103,14 @@ div.profilepicture {
     /*border-color: white;*/
     /*border-width: thick;*/
     width: 100px;
-    height: 100px;  
+    height: 100px;
+
+    /*Animation "example"*/
+  background-color: red;
+  position: relative;
+  animation-name: example;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
 }
 
 div.propicfollower{
@@ -199,10 +205,8 @@ div.custom-row{
 
 div.follower-username{
   display: flex;
-}
-
-div.follower-username>a{
-  vertical-align: middle;
+  align-items: center; /* Vertical */
+  justify-content: center; /* Horizontal */
 }
 
 .navbar-light{
@@ -316,49 +320,4 @@ div.follower-count{
 
 .post-form-label {
     font-size: 18px;
-}
-
-
-.floating-div{
-  display: none;
-  position: fixed;
-  padding-top: 70px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.5);
-}
-
-.floating-div-content{
-  background-color: var(--background-color);
-  margin: auto;
-  height: 400px;
-  width: 300px;
-  border-radius: 16px;
-  overflow: auto;
-}
-
-.close-icon{
-  position: absolute;
-  float: left;
-  display: flex;
-  margin: 8px;
-  z-index: 5;
-}
-
-a{
-  color: var(--text-color);
-}
-
-div.follower-title{
-  position: absolute;
-  float: left;
-  display: inline-block;
-  border-radius: 16px;
-  top: 20px;
-  width: 300px;
-  background-color: var(--background-color);
-  height: 40px;
 }

@@ -1,35 +1,13 @@
 <?php
-include 'database.php';
-include 'functions.php';
-include 'bootstrap.php';
 
-//$local_username=$_SESSION['username'];
-
-if(isset($_GET['username'])){
-    $username = $_GET['username'];
-    //Get user data from database
-    
-    $user = $dbh->getUserDetail($username);
-    //If user is not found, alert box and redirect to index.php
-    if(empty($user)){
-        alertBoxRedirect("Utente non trovato", "index.php");
-    }
-    $user=$user[0];
-
-
-}else{
-    //Return to home page
-    header("Location: index.php");
-
-}
-
-$followers=$dbh->getFollowers($user['user_id']);
-PROPIC;
+$followersList=$dbh->getFollowers($user['user_id']);
+$followingList=$dbh->getFollowing($user['user_id']);
 
 
 function generateFollower($user){
-    if(file_exists(PROPIC.$user['username'].'.jpg')){
-        $propic = PROPIC.$user['username'].'.jpg';
+    $propic = "../assets/img/propic/".$user['username'].'.jpg';
+    if(file_exists($propic)){
+      
     }else{
         $propic = IMG.'propic-placeholder.jpg';
     }
@@ -39,9 +17,9 @@ function generateFollower($user){
         <div class="profilepicture propicfollower ">
         <img class="profilepicture" src="'.$propic.'" alt="follower-image">
     </div>
-    <div >
+    <div>
         <div class="follower-username">
-            <a href="personal.php?username='.$user['username'].'">'.$user['username'].'</a>
+            <a href="personal.php?username='.$user['username'].'"><p class="vertical-text">'.$user['username'].'</p>  </a>
         </div>
     </div>
     </div>';
@@ -51,24 +29,56 @@ function generateFollower($user){
 }
 
 ?>
+    
 
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title><?php echo 'Follower di '.$user['username'] ?> </title>
-    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <div class="floating-div" id="floating-followers">
+        
+        <div class="floating-div-content" id="follower-content" style="padding-top: 12px;">
+        <div class="follower-title">
+        <div class="close-icon"><button class="btn-close"  onclick="followersOverlayOff()"> 
+        </div>  
+        <div class="center" style="margin:8px;">
+                <b>Followers</b>
+            </div>
+        </div>
+        
+            
+            
+            <?php 
+            for ($i=0; $i < count($followersList); $i++) { 
+                echo generateFollower($followersList[$i]);
+            } 
+            ?> 
+            
+          
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
-</head>
-<body>
-    <?php 
-    for ($i=0; $i < count($followers); $i++) { 
-        echo generateFollower($followers[$i]);
-    } 
-    ?> 
-</body>
-</html>
+
+        </div>
+    </div>
+
+    <div class="floating-div" id="floating-following">
+        
+        <div class="floating-div-content" id="follower-content" style="padding-top: 12px;">
+        <div class="follower-title">
+        <div class="close-icon"><button class="btn-close"  onclick="followingOverlayOff()"> 
+        </div>  
+        <div class="center" style="margin:8px;">
+                <b>Following</b>
+            </div>
+        </div>
+        
+            
+            
+            <?php 
+            for ($i=0; $i < count($followingList); $i++) { 
+                echo generateFollower($followingList[$i]);
+            } 
+            ?> 
+            
+          
+
+
+        </div>
+    </div>
 
     

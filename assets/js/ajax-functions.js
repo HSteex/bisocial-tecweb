@@ -1,22 +1,20 @@
 
 
 //Function to toggle like/unlike
-function toggleLike($likeFlag,$isLiked,$post_id){
+function toggleLike($post_id){
     //Use ajax to like/unlike
     $.ajax({
         type: "POST",
         url: "like-process.php",
-        data: {like: $likeFlag, isLiked: $isLiked, post_id: $post_id},
+        data: {like:1 , post_id: $post_id},
         success: function(data){
             console.log(data);
             //If like is successful, change like-button button text
             if(data=="liked"){
-                $("#like-button").text("Unlike");
-                $isLiked=1;
-            }else{
-                $("#like-button").text("Like");
-                $isLiked=0;
-                
+                //TODO
+            }
+            if(data=="unliked"){
+                //TODO
             }
         }
     });
@@ -49,3 +47,5 @@ function toggleFollow($followFlag,$user_id){
         }
     });
 }
+
+

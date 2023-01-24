@@ -1,5 +1,5 @@
 <?php
-if(($_FILES['image']['size'] != 0) || !empty($_POST['description'])) {
+if(isset($_FILES['image']['size']) || !empty($_POST['description'])) {
     require("post-upload.php");
 }
 

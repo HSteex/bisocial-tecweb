@@ -51,6 +51,18 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getFollowing($user_id){
+        $stmt=$this->db->prepare("SELECT u.username
+        FROM user u
+        JOIN follower f
+        ON 	u.user_id=f.target_id AND u.user_id
+        WHERE f.source_id =?");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getPostsOfPersonal($user_id){
         $stmt = $this->db->prepare("SELECT u.username, u.user_image, u.nome, u.cognome ,p.* 
         from `user` u 
@@ -88,6 +100,40 @@ class DatabaseHelper{
         } else {
             return false;
         }
+    }
+
+    public function tooggleLike($user_id, $post_id, $like_bool){
+        if($like_bool){
+            $stmt = $this->db->prepare("INSERT INTO 'like' (user_id, post_id) VALUES (?, ?)");
+            $stmt->bind_param('ii', $user_id, $post_id);
+            $stmt->execute();
+        } else {
+            $stmt = $this->db->prepare("DELETE FROM 'like' WHERE user_id = ?  AND post_id = ?");
+            $stmt->bind_param('ii', $user_id, $post_id);
+            $stmt->execute();
+        }
+    }
+
+    //Check if the user already liked a post
+    public function isLiked($user_id, $post_id) {
+        $stmt = $this->db->prepare("SELECT * FROM 'like' WHERE user_id = ?  AND post_id = ?");
+        $stmt->bind_param('ii', $user_id, $post_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if($result->num_rows == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Get number of likes of a post
+    public function getLikesCount($post_id){
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM 'like' WHERE post_id = ?");
+        $stmt->bind_param('i', $post_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["COUNT(*)"];
     }
 
     public function getFollowersCount($user_id){
