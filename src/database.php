@@ -65,25 +65,25 @@ class DatabaseHelper{
 
     public function getPostsOfPersonal($user_id){
         $stmt = $this->db->prepare("SELECT u.username, u.user_image, u.nome, u.cognome ,p.* 
-        from `user` u 
-        join post p on u.user_id=p.creator_id 
+        from user u 
+        join `post` p on u.user_id=p.creator_id 
         where u.user_id =?");
-        $stmt->bind_param('i', $user_id, $index);
+        $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getPostsOfFollowing($user_id, $index){
+    public function getPostsOfFollowing($user_id){
         $stmt = $this->db->prepare("SELECT u.username, u.user_image, u.nome, u.cognome, p.*
         from follower f 
-        join `user` u on target_id =user_id 
-        join post p on  f.target_id=p.creator_id
+        join `user` u on f.target_id =user_id 
+        join `post` p on  f.target_id=p.creator_id
         where source_id =?
         order by p.created_at desc
-        LIMIT 10 OFFSET ?*10"
+        LIMIT 10"
         );
-        $stmt->bind_param('ii', $user_id, $index);
+        $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
