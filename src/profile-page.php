@@ -122,15 +122,11 @@ if(isset($_POST['follow'])) {
         </div>
         <?php
         require 'follower.php';
-        require("post-load-alert.php");
         $postType=1;
         require("post-load.php");
         ?>
 
-        <!-- TEST LIKE BUTTON -->
-        <div>
-        <object style="fill: white" type="image/svg+xml" data="../assets/like-icon.svg"></object>
-        </div>
+        
         <script src="../assets/js/ajax-functions.js"></script>
         
     <!-- </body>
