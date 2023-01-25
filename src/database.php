@@ -67,7 +67,8 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("SELECT u.username, u.user_image, u.nome, u.cognome ,p.* 
         from user u 
         join `post` p on u.user_id=p.creator_id 
-        where u.user_id =?");
+        where u.user_id =?
+        order by p.created_at desc");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -89,7 +90,7 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    //Check if the user is following another user
+    //Check if the user is following another user       
     public function isFollowing($user_id, $target_id) {
         $stmt = $this->db->prepare("SELECT * FROM follower WHERE source_id = ?  AND target_id = ?");
         $stmt->bind_param('ii', $user_id, $target_id);

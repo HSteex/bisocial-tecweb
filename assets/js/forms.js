@@ -70,6 +70,11 @@ function followersOverlayOn() {
     document.getElementById("floating-followers").style.display = "block";
 }
 
+function closeAlerts() {
+    document.getElementById('profile-edit').style.display = 'none';
+    document.getElementById('image-upload').style.display = 'none';
+}
+
 function followersOverlayOff() {
     document.getElementById("floating-followers").style.display = "none";
 }
@@ -85,4 +90,5 @@ function followingOverlayOff() {
 function closeComments(){
     document.getElementById("comments-container").innerHTML="";
     document.getElementById("floating-comments").style.display="none";
+    document.getElementById("comment-content").value = "";
 }

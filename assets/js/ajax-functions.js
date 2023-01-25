@@ -57,18 +57,19 @@ function loadComments($post_id){
         url: "comments-load.php",
         data: {post_id: $post_id},
         success: function(data){
+            document.getElementById("comment-btn").setAttribute('onclick', 'addComment('+ $post_id +')');
             document.getElementById("comments-container").innerHTML+=(data);
             document.getElementById("floating-comments").style.display="block";
         }
     });
 }
 
-function addComment($post_id, $user_id, $content){
+function addComment($post_id){
     //Use ajax to follow/unfollow
     $.ajax({
         type: "POST",
         url: "comment-add.php",
-        data: {post_id: $post_id, user_id: $user_id, content: $content},
+        data: {post_id: $post_id, content: document.getElementById(`comment-content`).value},
         success: function(data){
             document.getElementById("comment-content").value = "";
             document.getElementById("comments-container").innerHTML="";
