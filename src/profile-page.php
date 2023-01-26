@@ -127,10 +127,7 @@ if(isset($_POST['follow'])) {
         require("post-load.php");
         ?>
 
-        <!-- TEST LIKE BUTTON -->
-        <!-- <div>
-        <object style="fill: white" type="image/svg+xml" data="../assets/like-icon.svg"></object>
-        </div> -->
+        
         <script src="../assets/js/ajax-functions.js"></script>
         
     <!-- </body>
