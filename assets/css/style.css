@@ -6,8 +6,6 @@
   --text-color: white;
 }
 
-
-
 body {
     background-color: var(--background-color);
     color: white;   
@@ -15,6 +13,30 @@ body {
 
 .form-label {
     color: white;
+}
+
+.w3-button {
+  background-color: transparent !important;
+  color:var(--color-purple)!important;
+}
+
+ .fa-search{
+color: var(--color-red);
+} 
+
+.logout{
+margin:0px 15px 0px 30px;
+color:red;
+text-decoration: none;
+}
+
+.logo{
+  width: 124px;
+  color: rgb(255,255,255);
+}
+
+.container-fluid{
+  display:flex;
 }
 
 button.followButton{
@@ -59,11 +81,28 @@ button.unfollow:hover{
 
 }
 
+#comment-btn{
+  width: auto;
+  height: auto;
+  padding-top: auto;
+  padding-bottom: auto;
+  color: white;
+  background-color: transparent;
+} 
+
 div.coverimage {
     width: 100%;
     height: 120px;
     position: relative;
     overflow: hidden;
+}
+
+.btn-post{
+  background-color: var(--color-blue) !important;
+}
+
+.btn-cancel{
+  background-color: var(--color-red) !important;
 }
 
 img.coverimage {
@@ -200,31 +239,16 @@ div.custom-row{
 
 div.follower-username{
   display: flex;
-}
-
-div.follower-username>a{
-  vertical-align: middle;
+  align-items: center; /* Vertical */
+  justify-content: center; /* Horizontal */
 }
 
 .navbar-light{
   padding-left: 5px;
   padding-right: 5px;
   border-radius: 10px;
-}
-
-.bi-search-heart-fill{
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.bi-bell-fill{
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.bi-inbox-fill{
-  margin-left: 5px;
-  margin-right: 25px;
+  background: rgb(39,38,46);
+  display:flex;
 }
 
 div.follower-count{
@@ -237,21 +261,7 @@ div.follower-count{
     padding-right: 5px;
     border-radius: 10px;
   }
-  
-  .bi-search-heart-fill{
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  
-  .bi-bell-fill{
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  
-  .bi-inbox-fill{
-    margin-left: 5px;
-    margin-right: 25px;
-  }
+
   
   @keyframes example {
     0%   {border: 2px solid;border-color:#522375; left:0px; top:0px;}
@@ -268,24 +278,31 @@ div.follower-count{
   
 /*FLOATING BUTTON FOR POSTS*/
 .float{
-    position:fixed;
-    width:60px;
-    height:60px;
-    bottom:40px;
-    right:40px;
-    /*background-color:#0C9;*/
-    background: linear-gradient(-155deg, #4fc3c3 8%, #662c92 53%, #f1592a 94%), #4fc3c3;
-    color:#FFF;
-    border-radius:50px;
-    text-align:center;
-    box-shadow: 2px 2px 3px #999;
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:40px;
+  right:40px;
+  /*background-color:#0C9;*/
+  background: linear-gradient(-155deg, #4fc3c3 8%, #662c92 53%, #f1592a 94%), #4fc3c3;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
 }
 
 .my-float{
-    background-color: transparent;
-    font-size: 36px;
-    color: antiquewhite;
-    border: none;
+  background-color: transparent;
+  font-size: 36px;
+  color: antiquewhite;
+  border: none;
+  vertical-align:middle;
+  z-index: 1;
 }
 
 #overlay {
@@ -301,6 +318,7 @@ div.follower-count{
     z-index: 2;
     cursor: pointer;
 }
+
 #post-form{
     padding-left: 10%;
     padding-right: 10%;
@@ -335,10 +353,6 @@ div.follower-count{
     background: transparent;
     border: none !important;
     margin: 0px;
-}
-
-#search-tab{
-    display: none;
 }
 
 #search-form{
@@ -416,4 +430,30 @@ div.follower-title{
 .submit-button{
     background-color: #F1592A;
     color: #F1592A;
+}
+
+/* Notification System */
+.notification {
+  background-color: #555;
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.notification:hover {
+  background: var(--color-purple);
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 5px 10px;
+  margin:0px 5px;
+  border-radius: 50%;
+  background-color: #692d98;
+  color: white;
 }

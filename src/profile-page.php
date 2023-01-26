@@ -128,9 +128,9 @@ if(isset($_POST['follow'])) {
         ?>
 
         <!-- TEST LIKE BUTTON -->
-        <div>
+        <!-- <div>
         <object style="fill: white" type="image/svg+xml" data="../assets/like-icon.svg"></object>
-        </div>
+        </div> -->
         <script src="../assets/js/ajax-functions.js"></script>
         
     <!-- </body>

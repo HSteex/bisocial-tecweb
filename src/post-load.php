@@ -55,10 +55,10 @@ echo '<div class="floating-div" id="floating-comments">
         
             </div>
             <div class="floating-form">
+            <form method="post">
                 <span style="width:70%"><input type="text" name="comment" id="comment-content"></span>
-                <span style="width:30%"><button id="comment-btn" onclick="addComment(' . $post["post_id"] . ',' . $_SESSION["user_id"] . ', document.getElementById(`comment-content`).value)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-shift-fill" style="width: 18px;height: 18px;font-size: 939px;color:red" >
-                        <path d="M7.27 2.047a1 1 0 0 1 1.46 0l6.345 6.77c.6.638.146 1.683-.73 1.683H11.5v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3H1.654C.78 10.5.326 9.455.924 8.816L7.27 2.047z"></path>
-                    </svg></button></span>
+                <span style="width:30%"><button type="submit" class="fas fa-arrow-alt-circle-up" name="btn-comment" id="comment-btn" onclick="addComment(' . $post["post_id"] . ',' . $_SESSION["user_id"] . ', document.getElementById(`comment-content`).value,notify('.$_SESSION["user_id"].','.$post["post_id"].')" style="color:red !important"></button></span>
+            </form>
             </div>
         </div>
     </div>';
