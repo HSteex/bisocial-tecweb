@@ -103,6 +103,26 @@ class DatabaseHelper{
         }
     }
 
+    public function saveNotify($user_id, $post_id){
+        $stmt = $this->db->prepare("INSERT INTO `notif` (user_id, post_id) VALUES (?, ?)");
+        $stmt->bind_param('ii', $user_id, $post_id);
+        $stmt->execute();
+    }
+
+    public function showNotify($user_id){
+        $stmt = $this->db->prepare("SELECT u.username, u.user_image, n.post_id
+        FROM post p
+        JOIN `notif` n on p.post_id=n.post_id
+        JOIN `user` u on n.user_id=u.user_id
+        WHERE p.creator_id= ?");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);  
+    }
+
+
+
     public function toggleLike($user_id, $post_id, $like_bool){
         if(!$like_bool){
             $stmt = $this->db->prepare("INSERT INTO `like` (user_id, post_id) VALUES (?, ?)");

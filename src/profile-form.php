@@ -77,7 +77,7 @@ $userImage = $dbh->getImage($_SESSION['user_id'])[0];
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-md-12 content-right"><button class="btn btn-primary form-btn" name="updateProfile" value="updateProfile" type="submit" style="font-family: 'Roboto Condensed', sans-serif;padding-right: 22px;padding-left: 22px;padding-bottom: 8px;padding-top: 8px;">SAVE </button><button class="btn btn-danger form-btn" onclick="document.getElementById('profile-edit').style.display = 'none'" type="reset" style="font-family: 'Roboto Condensed', sans-serif;padding-right: 22px;padding-left: 22px;padding-bottom: 8px;padding-top: 8px;">CANCEL </button></div>
+                    <div class="col-md-12 content-right"><button class="btn btn-primary btn-post" name="updateProfile" value="updateProfile" type="submit" style="font-family: 'Roboto Condensed', sans-serif;padding-right: 22px;padding-left: 22px;padding-bottom: 8px;padding-top: 8px;">SAVE </button><button class="btn btn-primary btn-cancel" onclick="document.getElementById('profile-edit').style.display = 'none'" type="reset" style="font-family: 'Roboto Condensed', sans-serif;padding-right: 22px;padding-left: 22px;padding-bottom: 8px;padding-top: 8px;">CANCEL </button></div>
                 </div>
             </div>
         </div>
