@@ -62,6 +62,12 @@ function loadComments($post_id){
             document.getElementById("floating-comments").style.display="block";
         }
     });
+    var input=document.getElementById("comment-content");
+    input.addEventListener("keypress", function(event) {  
+        if(event.key=="Enter"){
+            document.getElementById("comment-btn").click();
+        }
+    });
 }
 
 function addComment($post_id){

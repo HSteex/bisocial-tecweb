@@ -417,3 +417,27 @@ div.follower-title{
     background-color: #F1592A;
     color: #F1592A;
 }
+
+.margin-auto{
+    margin-left:auto !important;
+    margin-right: auto !important; 
+}
+
+.comment{
+  width: 80%;
+  overflow-wrap: break-word;
+  padding-right: 8px;
+}
+
+#comment-content{
+  width: 80%;
+  overflow-wrap: break-word;
+  border-radius: 8px;
+  margin: 4px;
+  height: 32px;
+  
+}
+
+div.higher{
+  height: 40px;
+}

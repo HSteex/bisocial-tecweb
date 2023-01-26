@@ -9,6 +9,11 @@ if ($postType==0){
 
 if (sizeof($posts) != 0) {
     foreach ($posts as $post) {
+        //$postPropic="assets/img/profile_pictures/".$post['profile_picture'];
+        $postPropic = "../assets/img/propic/" . $post['username'] . '.jpg';
+        if(!file_exists($postPropic)){
+            $postPropic= '../assets/img/propic-placeholder.jpg';
+        }
         echo '<div class="container center" style="margin: 5px auto;">
         <div class="col mb-5" style="max-width: 540px;border-radius: 15px;border: 4px solid #662c94;margin: 20px auto">
         <div class="card shadow-sm" style="background: rgb(45,44,56);">
@@ -16,7 +21,7 @@ if (sizeof($posts) != 0) {
                 <div class="row">
                     <div class="col" style="width: 20%;display: inline-flex;position: relative;align-items: right;justify-content: right;vertical-align: middle !important;">
                         <h5 class="fw-bold" style="text-align: right;font-size: 18px;width: 160px;align-items: right !important;justify-content: right !important;margin:5px 0px;position: relative;transform: translate(0px);margin-top: 24px;font-family: "Roboto Condensed", sans-serif;">' . $post['nome'] . " " . $post['cognome'] . '</h5><div></div>
-                        <a href="http://localhost/bisocial-tecweb/src/personal.php?username=' . $post['username'] . '"><div class="profilepicture" style="width: 50px; height:50px"><img class="profilepicture" src="../assets/img/propic/' . $post['username'] .'.jpg "></div></a>
+                        <a href="http://localhost/bisocial-tecweb/src/personal.php?username=' . $post['username'] . '"><div class="profilepicture" style="width: 50px; height:50px"><img class="profilepicture" src="'.$postPropic.'"></div></a>
                     </div>
                 </div>
                 <div class="center">
@@ -54,7 +59,7 @@ echo '<div class="floating-div" id="floating-comments">
             <div id="comments-container">
         
             </div>
-            <div class="floating-form">
+            <div class="floating-form higher">
                 <span style="width:70%"><input type="text" name="comment" id="comment-content"></span>
                 <span style="width:30%"><button id="comment-btn" onclick="addComment(' . $post["post_id"] . ',' . $_SESSION["user_id"] . ', document.getElementById(`comment-content`).value)"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-shift-fill" style="width: 18px;height: 18px;font-size: 939px;color:red" >
                         <path d="M7.27 2.047a1 1 0 0 1 1.46 0l6.345 6.77c.6.638.146 1.683-.73 1.683H11.5v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3H1.654C.78 10.5.326 9.455.924 8.816L7.27 2.047z"></path>

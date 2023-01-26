@@ -7,15 +7,15 @@ $html = '';
 foreach ($comments as $comment) {
     $user_image = file_exists($path . $comment['user_image']) ? $path . $comment['user_image'] : $path . "propic-placeholder.jpg";
     $html .= '<div class="custom-row">
-    <div class="profilepicture propicfollower">
+    <div class="profilepicture propicfollower margin-auto">
         <img src="../assets/img/' . $user_image . '">
     </div>
-    <div style="display: flex; justify-content: left;">
-        <div>
+    
+        <div class="comment">
             <a href="personal.php?username='.$comment['username'].'"><b class="vertical-text">'.$comment['username'].'</b></a>
-            <p><br>'.$comment['content'].'</p>
+            <p>'.$comment['content'].'</p>
         </div>
-    </div>
+    
     </div>';
 }
 echo $html;
