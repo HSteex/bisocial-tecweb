@@ -89,9 +89,9 @@ function deleteNotification($notif_id,$href){
         type: "POST",
         url: "delete-notification.php",
         data: {notif_id: $notif_id},
-        success: function(){}
+        success: function(){window.location.href = $href;}
     });
-    window.location.href = $href;
+    
             
 }
 
