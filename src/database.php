@@ -103,12 +103,14 @@ class DatabaseHelper{
         }
     }
 
+    //Save notification details after user trigger
     public function saveNotify($user_id, $post_id){
         $stmt = $this->db->prepare("INSERT INTO `notif` (user_id, post_id) VALUES (?, ?)");
         $stmt->bind_param('ii', $user_id, $post_id);
         $stmt->execute();
     }
 
+    //Show the notify in dropdown menu
     public function showNotify($user_id){
         $stmt = $this->db->prepare("SELECT u.username, u.user_image, n.post_id
         FROM post p

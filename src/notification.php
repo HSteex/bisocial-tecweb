@@ -1,6 +1,8 @@
 <?php
     $notify=$dbh->showNotify($_SESSION['user_id']);
     foreach($notify as $n){
-    echo '<ul>'.$n['username'].'ha appena commentato un tuo post.</ul>';
-    }
+
+    echo '<ul><span></span><span class="notif-name">'.$n['username'].'</span> ha appena commentato un tuo post.</ul>';
+    
+}
 ?>
