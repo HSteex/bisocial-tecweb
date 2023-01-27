@@ -29,7 +29,7 @@ if (sizeof($posts) != 0) {
             <div class="card-body px-4 py-5 px-md-5" style="border-radius: 4px;background: rgb(45,44,56);">
                 <div class="row">
                     <div class="col" style="width: 20%;display: inline-flex;position: relative;align-items: right;justify-content: right;vertical-align: middle !important;">
-                        <h5 class="fw-bold" style="text-align: right;font-size: 18px;width: 160px;align-items: right !important;justify-content: right !important;margin:5px 0px;position: relative;transform: translate(0px);margin-top: 24px;font-family: "Roboto Condensed", sans-serif;">' . $post['nome'] . " " . $post['cognome'] . '</h5><div></div>
+                        <h5 class="fw-bold" style="text-align: right;font-size: 18px;width: 160px;align-items: right !important;justify-content: right !important;margin:5px 0px;position: relative;transform: translate(0px);margin-top: 24px;font-family: "Roboto Condensed", sans-serif;">' . $nameToShow . '</h5><div></div>
                         <a href="http://localhost/bisocial-tecweb/src/personal.php?username=' . $post['username'] . '">
                         <div class="profilepicture" style="width: 50px; height:50px">
                         <img class="profilepicture" src="'.$postPropic.'"></div></a>
