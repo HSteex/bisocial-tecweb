@@ -105,6 +105,8 @@ CREATE TABLE IF NOT EXISTS `bisocial`.`post` (
     ENGINE = InnoDB;
 
 
+
+
 -- -----------------------------------------------------
 -- Table `bisocial`.`like`
 -- -----------------------------------------------------
@@ -129,6 +131,27 @@ ALTER TABLE `bisocial`.`like`
             REFERENCES `bisocial`.`user` (`user_id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
+
+
+
+-- -----------------------------------------------------
+-- Table `bisocial`.`notif`
+-- -----------------------------------------------------
+-- bisocial.notif definition
+
+CREATE TABLE `notif` (
+  `notif_id` int(11) NOT NULL AUTO_INCREMENT,
+  `source_id` int(11) NOT NULL,
+  `target_id` int(11) NOT NULL,
+  `href` varchar(100) NOT NULL,
+  `content` varchar(100) NOT NULL,
+  PRIMARY KEY (`notif_id`),
+  KEY `fk_notif_user` (`source_id`),
+  KEY `fk_notif_target` (`target_id`),
+  CONSTRAINT `fk_notif_target` FOREIGN KEY (`target_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notif_user` FOREIGN KEY (`source_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB;
+
 
 
 -- -----------------------------------------------------

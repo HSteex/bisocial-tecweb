@@ -5,12 +5,7 @@ $followingList=$dbh->getFollowing($user['user_id']);
 
 
 function generateFollower($user){
-    $propic = "../assets/img/propic/".$user['username'].'.jpg';
-    if(file_exists($propic)){
-      
-    }else{
-        $propic = IMG.'propic-placeholder.jpg';
-    }
+    $propic=getUserImage($user['user_image']);
 
     $html = '<div class="custom-row">
     

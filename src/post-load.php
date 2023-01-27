@@ -5,12 +5,21 @@ if ($postType==0){
 } else if($postType==1){
 #Following posts and creator details
     $posts=$dbh->getPostsOfPersonal($user['user_id']);
+#Single post
+}else if($postType==2){
+    $posts=$dbh->getSinglePost($_GET["post_id"]);
 }
 
 if (sizeof($posts) != 0) {
     foreach ($posts as $post) {
         //$postPropic="assets/img/profile_pictures/".$post['profile_picture'];
-        $postPropic = "../assets/img/propic/" . $post['username'] . '.jpg';
+        $postPropic = getUserImage($post['user_image']);
+        $nameToShow;
+        if($post['nome']!="" && $post['cognome']!=""){
+            $nameToShow=$post['nome'] . " " . $post['cognome'];
+        }else{
+            $nameToShow="@".$post['username'];
+        }
         if(!file_exists($postPropic)){
             $postPropic= '../assets/img/propic-placeholder.jpg';
         }
@@ -20,7 +29,7 @@ if (sizeof($posts) != 0) {
             <div class="card-body px-4 py-5 px-md-5" style="border-radius: 4px;background: rgb(45,44,56);">
                 <div class="row">
                     <div class="col" style="width: 20%;display: inline-flex;position: relative;align-items: right;justify-content: right;vertical-align: middle !important;">
-                        <h5 class="fw-bold" style="text-align: right;font-size: 18px;width: 160px;align-items: right !important;justify-content: right !important;margin:5px 0px;position: relative;transform: translate(0px);margin-top: 24px;font-family: "Roboto Condensed", sans-serif;">' . $post['nome'] . " " . $post['cognome'] . '</h5><div></div>
+                        <h5 class="fw-bold" style="text-align: right;font-size: 18px;width: 160px;align-items: right !important;justify-content: right !important;margin:5px 0px;position: relative;transform: translate(0px);margin-top: 24px;font-family: "Roboto Condensed", sans-serif;">' . $nameToShow . '</h5><div></div>
                         <a href="http://localhost/bisocial-tecweb/src/personal.php?username=' . $post['username'] . '"><div class="profilepicture" style="width: 50px; height:50px"><img class="profilepicture" src="'.$postPropic.'"></div></a>
                     </div>
                 </div>
@@ -45,7 +54,7 @@ if (sizeof($posts) != 0) {
     </div>';
     }
 } else {
-    echo '<div class="center"><a>Non hai nessun post da vedere</a></div>';
+    echo '<div class="center "><a>Non hai nessun post da vedere</a></div>';
 }
 echo '<div class="floating-div" id="floating-comments">
         <div class="floating-div-content" id="follower-content" style="padding-top: 12px;">
@@ -60,10 +69,10 @@ echo '<div class="floating-div" id="floating-comments">
         
             </div>
             <div class="floating-form higher">
-            <form method="post">
+           
                 <span style="width:70%"><input type="text" name="comment" id="comment-content"></span>
-                <span style="width:30%"><button type="submit" class="fas fa-arrow-alt-circle-up" name="btn-comment" id="comment-btn" onclick="addComment(' . $post["post_id"] . ',' . $_SESSION["user_id"] . ', document.getElementById(`comment-content`).value,notify('.$_SESSION["user_id"].','.$post["post_id"].')" style="color:red !important"></button></span>
-            </form>
+                <span style="width:30%"><button type="submit" class="fas fa-arrow-alt-circle-up" name="btn-comment" id="comment-btn"  style="color:red !important"></button></span>
+            
             </div>
         </div>
     </div>';

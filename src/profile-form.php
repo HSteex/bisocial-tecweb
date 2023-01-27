@@ -1,6 +1,9 @@
 <?php
-if(($_FILES['user_image']['size'] != 0)) {
-    require("image-upload.php");
+if(isset($_FILES['user_image']['size'])) {
+    if($_FILES['user_image']['size'] != 0){
+        $uploadType=0;
+        require("image-upload.php");
+    }
 }
 if(!empty($_POST['email']) || !empty($_POST['nome']) ||
     !empty($_POST['cognome']) || !empty($_POST['password']) ||

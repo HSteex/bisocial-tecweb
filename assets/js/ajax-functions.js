@@ -26,12 +26,12 @@ function toggleLike($post_id){
 
 
 //Function to toggle follow/unfollow
-function toggleFollow($followFlag,$user_id){
+function toggleFollow($followFlag,$user_id,$username){
     //Use ajax to follow/unfollow
     $.ajax({
         type: "POST",
         url: "follow-process.php",
-        data: {follow: $followFlag, user_id: $user_id},
+        data: {follow: $followFlag, user_id: $user_id, username: $username},
         success: function(data){
             $dataArray=JSON.parse(data);
             //If follow is successful, change follow-button button text
@@ -84,4 +84,27 @@ function addComment($post_id){
     });
 }
 
+function deleteNotification($notif_id,$href){
+    $.ajax({
+        type: "POST",
+        url: "delete-notification.php",
+        data: {notif_id: $notif_id},
+        success: function(){}
+    });
+    window.location.href = $href;
+            
+}
+
+function deleteAllNotifications(){
+    $.ajax({
+        type: "POST",
+        url: "delete-notification.php",
+        data: {deleteAll: 1},
+        success: function(){
+            document.getElementById("notifications-container").innerHTML="";
+            document.getElementById("notifications-count").innerHTML="0";
+        }
+    });
+            
+}
 

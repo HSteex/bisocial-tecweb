@@ -2,13 +2,13 @@
 require("bootstrap.php");
 $post_id=$_POST['post_id'];
 $comments = $dbh->getComments($post_id);
-$path = "../assets/img/propic/";
+$path = "../assets/img/";
 $html = '';
 foreach ($comments as $comment) {
-    $user_image = file_exists($path . $comment['user_image']) ? $path . $comment['user_image'] : $path . "propic-placeholder.jpg";
+    $user_image = getUserImage($comment['user_image']);
     $html .= '<div class="custom-row">
     <div class="profilepicture propicfollower margin-auto">
-        <img src="../assets/img/' . $user_image . '">
+        <img class="profilepicture" src="'.$user_image.'">
     </div>
     
         <div class="comment">

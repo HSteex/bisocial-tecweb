@@ -24,6 +24,8 @@ if(isset($_GET['username'])){
 //Get followers count
 $followers=$dbh->getFollowersCount($user['user_id']);
 
+$profile_picture=getUserImage($user['user_image']);
+
 //Check if user is profile owner
 if($user['username']==$_SESSION['username']){
     $isOwner=true;
@@ -47,21 +49,10 @@ if(isset($_POST['follow'])) {
 
 <!------------------------ HTML ------------------------>
         <script src=../assets/js/forms.js></script>
-        <?php
-        //Print menu bar if user is profile owner
-        if($isOwner){
-            
-        }
         
-        ?>
         <div class="profilepicture center margin">
             <img class="profilepicture" src=" <?php
-            //Print user cover image if set else print default image
-            $propic = "../assets/img/propic/".$user['username'].'.jpg';
-            if(!file_exists($propic)){
-                $propic= 'src="../assets/img/propic-placeholder.jpg"';
-            }
-            echo $propic;
+            echo $profile_picture;
             ?>" alt="Foto profilo">
         </div>
 
@@ -89,9 +80,7 @@ if(isset($_POST['follow'])) {
             
         </div>
 
-        <div class="center">
-        <button class="btn btn-primary updateProfile center" onclick="window.location.href='profile.php';" type="submit" name="updateProfile" value="updateProfile">Update Profile</button>
-        </div>
+        
 
         <div class="row follower-count margin">
             <div class="col-6">
@@ -108,7 +97,11 @@ if(isset($_POST['follow'])) {
         <?php 
         //if user is not profile owner, print follow/unfollow button
         if(!$isOwner){
-            echo '<button class="btn btn-primary followButton center '.($isFollowing? "unfollow" : "follow" ).' type="button" onclick="toggleFollow(1,'.$user['user_id'].')" id="follow-button" name="follow-button" value="1">'.($isFollowing ? "Unfollow" : "Follow" ).'</button>';
+            echo '<button class="btn btn-primary followButton center '.($isFollowing? "unfollow" : "follow" ).' type="button" onclick="toggleFollow(1,'.$user['user_id'].',`'.$user["username"].'`)" id="follow-button" name="follow-button" value="1">'.($isFollowing ? "Unfollow" : "Follow" ).'</button>';
+        }else{
+            echo '<div class="center">
+                    <button class="btn btn-primary updateProfile center" onclick="window.location.href=`profile.php`;" type="submit" name="updateProfile" value="updateProfile">Update Profile</button>
+                    </div>';
         }
         ?>
         

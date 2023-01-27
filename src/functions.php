@@ -31,6 +31,19 @@ function loginCheck($dbh) {
     }
 }
 
+function  getUserImage($user_image){
+    if($user_image=="" || $user_image==null){
+       return "../assets/img/propic-placeholder.jpg";
+    }else{
+        if(file_exists("../assets/img/propic/".$user_image)){
+            return "../assets/img/propic/".$user_image;
+    }
+    else{
+        return "../assets/img/propic-placeholder.jpg";
+    }
+    }
+}
+
 /*
 function login($username, $password) {
     // Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.

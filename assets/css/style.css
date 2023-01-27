@@ -369,6 +369,9 @@ div.follower-count{
     margin: 0px;
 }
 
+.animate-fading {
+  animation: fading 2s infinite !important;
+}
 
 .floating-div{
   display: none;
@@ -480,4 +483,45 @@ div.follower-title{
 
 div.higher{
   height: 40px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0px;
+  padding-top: 12px;
+}
+
+hr.rounded {
+  border-top: 8px solid #bbb;
+  border-radius: 5px;
+  margin-bottom: 12px;
+  margin-top: 0;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+div.drop-menu{
+  width: 400px;
+  right: 0;
+  background-color: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  color: white;
+  max-height: 800px;
+  overflow-y: auto;
+}
+
+@media only screen and (max-width: 600px){
+  div.drop-menu{
+    
+    width: 250px;
+    max-height: 600px;
+  }
+}
+
+button.delete-notification{
+  background-color: transparent;
+  border: none;
+  color: white;
+  width: 100%;
+  height: auto;
 }

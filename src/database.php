@@ -40,7 +40,7 @@ class DatabaseHelper{
     }
 
     public function getFollowers($user_id) {
-        $stmt = $this->db->prepare("SELECT u.username
+        $stmt = $this->db->prepare("SELECT u.username, u.user_image, u.nome, u.cognome
         FROM user u
         JOIN follower f 
         ON 	u.user_id=f.source_id AND u.user_id
@@ -52,7 +52,7 @@ class DatabaseHelper{
     }
 
     public function getFollowing($user_id){
-        $stmt=$this->db->prepare("SELECT u.username
+        $stmt=$this->db->prepare("SELECT u.username, u.user_image, u.nome, u.cognome
         FROM user u
         JOIN follower f
         ON 	u.user_id=f.target_id AND u.user_id
@@ -70,6 +70,17 @@ class DatabaseHelper{
         where u.user_id =?
         order by p.created_at desc");
         $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getSinglePost($post_id){
+        $stmt = $this->db->prepare("SELECT u.username, u.user_image, u.nome, u.cognome ,p.* 
+        from user u 
+        join `post` p on u.user_id=p.creator_id 
+        where p.post_id=?");
+        $stmt->bind_param('i', $post_id);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -103,22 +114,42 @@ class DatabaseHelper{
         }
     }
 
-    public function saveNotify($user_id, $post_id){
-        $stmt = $this->db->prepare("INSERT INTO `notif` (user_id, post_id) VALUES (?, ?)");
-        $stmt->bind_param('ii', $user_id, $post_id);
+    public function saveNotify($user_id, $target_id, $content, $href){
+        $stmt = $this->db->prepare("INSERT INTO `notif` (source_id, target_id, content, href) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('iiss', $user_id, $target_id, $content, $href);
         $stmt->execute();
     }
 
     public function showNotify($user_id){
-        $stmt = $this->db->prepare("SELECT u.username, u.user_image, n.post_id
-        FROM post p
-        JOIN `notif` n on p.post_id=n.post_id
-        JOIN `user` u on n.user_id=u.user_id
-        WHERE p.creator_id= ?");
+        $stmt = $this->db->prepare("SELECT u.username, u.user_image, n.href, n.content, n.notif_id
+        from `user` u 
+        join notif n on u.user_id=n.source_id 
+        where n.target_id =?");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);  
+    }
+
+    public function countNotification($user_id){
+        $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM notif WHERE target_id = ?");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0]['count'];
+
+    }
+
+    public function deleteNotification($notif_id){
+        $stmt = $this->db->prepare("DELETE FROM notif WHERE notif_id = ?");
+        $stmt->bind_param('i', $notif_id);
+        $stmt->execute();
+    }
+
+    public function deleteAllNotifications($user_id){
+        $stmt = $this->db->prepare("DELETE FROM notif WHERE target_id = ?");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
     }
 
 
@@ -226,6 +257,14 @@ class DatabaseHelper{
         $insert_stmt = $this->db->prepare("INSERT INTO post (creator_id, description, created_at, post_image) VALUES (?, ?, ?, ?)");
         $insert_stmt->bind_param('isss', $user_id, $description, $created_at, $post_image);
         $insert_stmt->execute();
+    }
+
+    public function getPostOwner($post_id){
+        $stmt = $this->db->prepare("SELECT creator_id from post where post_id =?");
+        $stmt->bind_param('i', $post_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["creator_id"];
     }
 
     public function getComments($post_id) {
