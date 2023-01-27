@@ -114,12 +114,14 @@ class DatabaseHelper{
         }
     }
 
+    //Save notification details after user trigger
     public function saveNotify($user_id, $target_id, $content, $href){
         $stmt = $this->db->prepare("INSERT INTO `notif` (source_id, target_id, content, href) VALUES (?, ?, ?, ?)");
         $stmt->bind_param('iiss', $user_id, $target_id, $content, $href);
         $stmt->execute();
     }
 
+    //Show the notify in dropdown menu
     public function showNotify($user_id){
         $stmt = $this->db->prepare("SELECT u.username, u.user_image, n.href, n.content, n.notif_id
         from `user` u 
