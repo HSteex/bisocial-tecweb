@@ -429,6 +429,7 @@ div.follower-count{
   height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
   z-index: 5;
 }
 
@@ -565,6 +566,29 @@ div.drop-menu{
         padding: 5px 40px 0;
     }
 }
+
+@media screen and (min-width: 600px) {
+  .floating-div-content{
+    width: 40vw;
+    min-width: 600px;
+  }
+
+  .floating-form {
+    width: 40vw;
+    min-width: 600px;
+  }
+
+  div.follower-title{
+    width: 40vw;
+    min-width: 600px;
+  }
+
+  div.comment{
+    width: 90%;
+  }
+
+}
+  
 
     
 
