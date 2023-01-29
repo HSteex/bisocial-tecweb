@@ -107,7 +107,10 @@ button.unfollow:hover{
   padding-top: auto;
   padding-bottom: auto;
   color: white;
-  background-color: transparent;
+  background-color: var(--color-blue) !important;
+  cursor: pointer;
+  border-radius: 30%;
+  border-color: var(--color-blue);
 } 
 
 div.coverimage {
@@ -115,6 +118,15 @@ div.coverimage {
     height: 120px;
     position: relative;
     overflowfpost-form-label: hidden;
+}
+
+.post-column{
+  width: 20%;
+  display: inline-flex;
+  position: relative;
+  align-items: right;
+  justify-content: right;
+  vertical-align: middle !important;flex:1 0 0%
 }
 
 .btn-post{
@@ -631,4 +643,18 @@ button.delete-notification{
 
 .unliked{
     background-color: #662C94;
+}
+
+.fw-bold{
+  font-weight:700!important;
+  text-align: right;
+  font-size: 18px;
+  width: 160px;
+  align-items: right !important;
+  justify-content: right !important;
+  margin:5px 0px;
+  position: relative;
+  transform: translate(0px);
+  margin-top: 24px;font-family: "Roboto Condensed", sans-serif;
+  /* text-align: right;font-size: 18px;width: 160px;align-items: right !important;justify-content: right !important;margin:5px 0px;position: relative;transform: translate(0px);margin-top: 24px;font-family: "Roboto Condensed", sans-serif;" */
 }
