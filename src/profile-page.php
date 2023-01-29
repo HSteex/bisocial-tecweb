@@ -77,7 +77,7 @@ if(isset($_POST['follow'])) {
                 }
                 ?>
             </i>
-            
+            <h2 class="form-label"><?php echo $user['bio'];?></h2>
         </div>
 
         

@@ -161,6 +161,8 @@ CREATE TABLE IF NOT EXISTS `bisocial`.`comment` (
                                                  `comment_id` INT NOT NULL AUTO_INCREMENT,
                                                  `post_id` INT NOT NULL,
                                                  `user_id` INT NOT NULL,
+                                                 `content` VARCHAR(128) NOT NULL,
+                                                 `created_at` DATETIME NOT NULL,
                                                  PRIMARY KEY (`comment_id`),
                                                  INDEX `idx_comment_post` (`post_id` ASC),
                                                  CONSTRAINT `fk_comment_post`

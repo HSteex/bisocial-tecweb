@@ -12,10 +12,10 @@ function toggleLike($post_id){
             $dataArray=JSON.parse(data);
             //If like is successful, change like-button button text
             if($dataArray["status"]=="liked"){
-                //TODO LOX set like button to liked state in CSS (red)
+                $("#like-button-" + $post_id).removeClass("liked").addClass("unliked");
             }
-            if($dataArray["status"]=="unliked"){    
-                //TODO LOX set like button to unliked state in CSS (white or gray)
+            if($dataArray["status"]=="unliked"){
+                $("#like-button-" + $post_id).removeClass("unliked").addClass("liked");
             }
            $("#likes-count-"+$post_id).text($dataArray["likes"]);
         }

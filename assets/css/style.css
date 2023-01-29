@@ -208,6 +208,11 @@ div.name {
     margin-top: 8px;
 }
 
+div.name>h2 {
+    padding: 5px 25% 0;
+    font-size: 18px;
+}
+
 button.follow {
     color: white;
 }
@@ -556,6 +561,9 @@ div.drop-menu{
     width: 250px;
     max-height: 600px;
   }
+    div.name>h2 {
+        padding: 5px 40px 0;
+    }
 }
 
     
@@ -591,4 +599,12 @@ button.delete-notification{
   color: white;
   width: 100%;
   height: auto;
+}
+
+.liked{
+    background-color: #F1592B;
+}
+
+.unliked{
+    background-color: #662C94;
 }
