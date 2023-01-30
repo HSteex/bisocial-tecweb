@@ -83,6 +83,15 @@ echo '<div class="floating-div" id="floating-comments">
                     <input type="text" name="comment" id="comment-content">
                 </span>
                 <span style="width:30%"><button type="submit" class="fas fa-arrow-alt-circle-up" name="btn-comment" id="comment-btn" ></button>
+                <script>
+                var btn = document.getElementById("comment-content");
+                btn.addEventListener("keypress", function(event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault();
+                        document.getElementById("comment-btn").click();
+                    }
+                });
+                </script>
                 </span>
             
             </div>
