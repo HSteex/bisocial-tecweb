@@ -77,11 +77,12 @@ function addComment($post_id){
         url: "comment-add.php",
         data: {post_id: $post_id, content: document.getElementById(`comment-content`).value},
         success: function(data){
-            document.getElementById("comment-content").value = "";
+            
             document.getElementById("comments-container").innerHTML="";
             loadComments($post_id);
         }
     });
+    document.getElementById("comment-content").value = "";
 }
 
 function deleteNotification($notif_id,$href){

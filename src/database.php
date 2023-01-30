@@ -75,7 +75,7 @@ class DatabaseHelper{
         from user u 
         join `post` p on u.user_id=p.creator_id 
         where u.user_id =?
-        order by p.created_at desc");
+        order by p.post_id desc");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -101,8 +101,7 @@ class DatabaseHelper{
         join `user` u on f.target_id =user_id 
         join `post` p on  f.target_id=p.creator_id
         where source_id =?
-        order by p.created_at desc
-        LIMIT 10"
+        order by p.post_id desc"
         );
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
@@ -135,7 +134,8 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("SELECT u.username, u.user_image, n.href, n.content, n.notif_id
         from `user` u 
         join notif n on u.user_id=n.source_id 
-        where n.target_id =?");
+        where n.target_id =?
+        order by n.notif_id desc");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
